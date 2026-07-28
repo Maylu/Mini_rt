@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:04:56 by gcamara           #+#    #+#             */
-/*   Updated: 2025/12/13 15:16:46 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/28 16:26:30 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+/*size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -21,7 +22,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	}
 	return (i);
-}
+}*/
 
 char	*fill_line(char **stash)
 {

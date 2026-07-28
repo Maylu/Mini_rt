@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:11:31 by gcamara           #+#    #+#             */
-/*   Updated: 2025/12/08 11:13:17 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/28 15:46:58 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_printlines(char const *s, char *p, size_t len, unsigned int start)

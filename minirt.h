@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/24 18:52:49 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/28 19:19:27 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_obj
 	float		height;
 	float		lighting;
 	float		fov;
+	char		**info;
 }			t_obj;
 
 #endif

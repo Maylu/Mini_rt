@@ -6,7 +6,11 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS = $(addprefix $(DIR_SRC), $(C_FILES))
 INC = -I includes
 C_FILES = get_next_line.c \
-	get_next_line_utils.c \
+		../libft/ft_strlen.c \
+		../libft/ft_strlcat.c \
+		../libft/ft_strchr.c \
+		../libft/ft_substr.c \
+		../libft/ft_strjoin.c \
 
 OBJS = $(SRCS:.c=.o)
 all: $(NAME)
