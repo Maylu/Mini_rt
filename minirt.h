@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/30 14:41:45 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/30 16:14:13 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_obj
 	char		**info;
 }			t_obj;
 
+typedef void (*atributs)();
+
 //////////////////////////////
 /*			INIT			*/
 //////////////////////////////
@@ -70,7 +72,14 @@ void	init_objets(t_obj **obj, int count, char **argv);
 t_obj	**init_structs(t_obj **obj, int count);
 int		ft_strcmp(const char *s1, const char *s2);
 int		attribut_identifier(char *identifier);
+void	attribute_info(t_obj *obj);
 int		is_valid(int argc, char **argv);
+void add_ambiant();
+void add_light();
+void add_camera();
+void add_sphere();
+void add_plane();
+void add_cylindre();
 
 //////////////////////////////
 /*			EXIT			*/

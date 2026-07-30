@@ -15,7 +15,7 @@ GNL = $(GNL_DIR)/gnl.a
 
 SRCS = $(C_FILES)
 INC = -I includes
-C_FILES = minirt.c exit_functions.c init_utils.c init_struct.c \
+C_FILES = minirt.c exit_functions.c init_utils.c init_struct.c add_obj.c \
 
 OBJS = $(SRCS:.c=.o)
 all: $(NAME) 
