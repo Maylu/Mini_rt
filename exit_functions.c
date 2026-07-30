@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/30 14:46:35 by gcamara          ###   ########.fr       */
+/*   Created: 2026/07/30 14:31:40 by gcamara           #+#    #+#             */
+/*   Updated: 2026/07/30 14:36:04 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(int argc, char **argv)
+void free_objs(t_obj **obj)
 {
-	int		count;
-	t_obj	**obj;
+	int i;
 
-	obj = NULL;
-	if (!is_valid(argc, argv))
-		return (1);
-	count = count_objs(argv);
-	printf ("%d\n", count);
-	obj = init_structs(obj, count);
-	init_objets(obj, count, argv);
-	exit_message("Error/n", obj, 2);
-	return (0);
+	i = 0;
+	while (obj[i])
+	{
+		free(obj[i]);
+		i++;
+	}
+	free(obj);
+}
+
+void free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void exit_message(char *message, t_obj **obj, int code)
+{
+	write(code, message, ft_strlen(message));
+	free_objs(obj);
 }
