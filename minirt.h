@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/30 16:14:13 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/31 16:50:00 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,21 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <limits.h>
+# include <float.h>
+# include <math.h>
 # include <X11/keysym.h>
 # include "Includes/GNL/get_next_line.h"
 # include "Includes/libft/libft.h"
 
 enum e_identifier
 {
-	AMBIENT_LIGHT = 1,
-	LIGHT = 2,
-	CAMERA = 3,
-	SPHERE = 4,
-	PLANE = 5,
-	CYLINDER = 6,
+	AMBIENT_LIGHT,
+	LIGHT,
+	CAMERA,
+	SPHERE,
+	PLANE,
+	CYLINDER,
 };
 
 typedef struct s_vector
@@ -43,9 +46,9 @@ typedef struct s_vector
 
 typedef struct s_color
 {
-	int		r;
-	int		g;
-	int		b;
+	float		r;
+	float		g;
+	float		b;
 }		t_color;
 
 typedef struct s_obj
@@ -61,7 +64,7 @@ typedef struct s_obj
 	char		**info;
 }			t_obj;
 
-typedef void (*atributs)();
+typedef void (*atributs)(t_obj *obj, t_obj **tab);
 
 //////////////////////////////
 /*			INIT			*/
@@ -72,14 +75,24 @@ void	init_objets(t_obj **obj, int count, char **argv);
 t_obj	**init_structs(t_obj **obj, int count);
 int		ft_strcmp(const char *s1, const char *s2);
 int		attribut_identifier(char *identifier);
-void	attribute_info(t_obj *obj);
+void	attribute_info(t_obj *obj, t_obj **tab);
 int		is_valid(int argc, char **argv);
-void add_ambiant();
-void add_light();
-void add_camera();
-void add_sphere();
-void add_plane();
-void add_cylindre();
+int		count_tab(char **tab);
+void	set_coordinate(t_obj *obj, t_obj **tab);
+void    check_value_coordinate(char *str, t_obj **tab);
+void	add_ambiant(t_obj *obj, t_obj **tab);
+void	add_light(t_obj *obj, t_obj **tab);
+void	add_camera(t_obj *obj, t_obj **tab);
+void	add_sphere(t_obj *obj, t_obj **tab);
+void	add_plane(t_obj *obj, t_obj **tab);
+void	add_cylindre(t_obj *obj, t_obj **tab);
+
+//////////////////////////////
+/*			MATH			*/
+//////////////////////////////
+
+float    ft_atof(const char *nptr);
+
 
 //////////////////////////////
 /*			EXIT			*/

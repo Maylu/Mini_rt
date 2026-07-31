@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:31:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/30 14:36:04 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/31 15:30:42 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void free_objs(t_obj **obj)
 	i = 0;
 	while (obj[i])
 	{
+		free_tab(obj[i]->info);
 		free(obj[i]);
 		i++;
 	}

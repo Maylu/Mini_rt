@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:40:01 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/30 14:42:52 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/31 14:48:34 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ int	is_valid(int argc, char **argv)
 	return (1);
 }
 
+int	count_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	return (i);
+}
+
 int attribut_identifier(char *identifier)
 {
 	if(strcmp(identifier, "L") == 0)
@@ -57,5 +67,5 @@ int attribut_identifier(char *identifier)
 		return (PLANE);
 	else if(strcmp(identifier, "cy") == 0)
 		return (CYLINDER);
-	return (0);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/30 16:59:21 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/07/31 15:30:49 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_objs(char **argv)
 		if (line == NULL)
 			break ;
 		tab = ft_split(line, '\t');
-		if (attribut_identifier(tab[0]) != 0)
+		if (attribut_identifier(tab[0]) < 0)
 			count++;
 		free_tab(tab);
 		free (line);
@@ -72,15 +72,28 @@ void	init_objets(t_obj **obj, int count, char **argv)
 		if (line == NULL)
 			break ;
 		obj[i]->info = ft_split(line, '\t');
-		attribute_info(obj[i]);
-		free_tab(obj[i]->info);
+		if (attribut_identifier(obj[i]->info[0]) < 0)
+		{
+			free_tab(obj[i]->info);
+			free(line);
+			continue;
+		}
+		attribute_info(obj[i], obj);
 		free (line);
 		line = NULL;
+		i++;
 	}
+	
+	printf("Sphere:\n");
+	printf("  Diameter : %f\n", obj[4]->diameter);
+	printf("  Position : x = %f, y = %f, z = %f\n",
+    obj[4]->vec3.x, obj[4]->vec3.y, obj[4]->vec3.z);
+	printf("  Color    : r = %f, g = %f, b = %f\n",
+    obj[4]->color.r, obj[4]->color.g, obj[4]->color.b);
 	close (file);
 }
 
-void	attribute_info(t_obj *obj)
+void	attribute_info(t_obj *obj, t_obj **tab)
 {
 	atributs	f[6];
 	int			i;
@@ -96,7 +109,7 @@ void	attribute_info(t_obj *obj)
 	while (i < 6)
 	{
 		if (i == attribut_identifier(obj->info[0]))
-			f[i]();
+			f[i](obj, tab);
 		i++;
 	}
 }
