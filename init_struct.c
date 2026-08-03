@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/31 15:30:49 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/03 21:16:08 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ t_obj	**init_structs(t_obj **obj, int count)
 	return (obj);
 }
 
+char 	*clean_line(char **line)
+{
+	int len;
+
+	len = ft_strlen(*line);
+	if ((*line)[len - 1] == '\n')
+		(*line)[len - 1] = '\0';
+	return(*line);
+}
+
 void	init_objets(t_obj **obj, int count, char **argv)
 {
 	int		file;
@@ -71,19 +81,22 @@ void	init_objets(t_obj **obj, int count, char **argv)
 		line = get_next_line(file);
 		if (line == NULL)
 			break ;
+		line = clean_line(&line);
 		obj[i]->info = ft_split(line, '\t');
-		if (attribut_identifier(obj[i]->info[0]) < 0)
+		if (obj[i]->info[0] == NULL || attribut_identifier(obj[i]->info[0]) < 0 )
 		{
 			free_tab(obj[i]->info);
 			free(line);
 			continue;
 		}
-		attribute_info(obj[i], obj);
 		free (line);
 		line = NULL;
 		i++;
 	}
-	
+	for (int j = 0;  obj[j]; j++)
+	{
+		attribute_info(j, obj);
+	}
 	printf("Sphere:\n");
 	printf("  Diameter : %f\n", obj[4]->diameter);
 	printf("  Position : x = %f, y = %f, z = %f\n",
@@ -93,7 +106,7 @@ void	init_objets(t_obj **obj, int count, char **argv)
 	close (file);
 }
 
-void	attribute_info(t_obj *obj, t_obj **tab)
+void	attribute_info(int index, t_obj **obj)
 {
 	atributs	f[6];
 	int			i;
@@ -108,8 +121,8 @@ void	attribute_info(t_obj *obj, t_obj **tab)
 
 	while (i < 6)
 	{
-		if (i == attribut_identifier(obj->info[0]))
-			f[i](obj, tab);
+		if (i == attribut_identifier(obj[index]->info[0]))
+			f[i](index, obj);
 		i++;
 	}
 }

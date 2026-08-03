@@ -6,64 +6,48 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/31 16:47:39 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/03 19:11:07 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void add_ambiant(t_obj *obj, t_obj **tab)
+void add_ambiant(int index, t_obj **obj)
 {
     (void)obj;
-    (void)tab;
+    (void)index;
 	return ;
 }
-void add_light(t_obj *obj, t_obj **tab)
+void add_light(int index, t_obj **obj)
 {
     (void)obj;
-    (void)tab;
+    (void)index;
 	return ;
 }
-void add_camera(t_obj *obj, t_obj **tab)
+void add_camera(int index, t_obj **obj)
 {
     (void)obj;
-    (void)tab;
+    (void)index;
 	return ;
 }
 
-void add_sphere(t_obj *obj, t_obj **tab)
+void add_sphere(int index, t_obj **obj)
 {
-    char **color_temp;
-    color_temp = ft_split(obj->info[3], ',');
-    set_coordinate(obj, tab);
-    if (count_tab(color_temp) > 3)
-    {
-        free_tab(color_temp);
-        exit_message("too much arguments", tab, 2);
-    }
-    obj->color.r = ft_atof(color_temp[0]);
-    if (obj->color.r < 0 || obj->vec3.x > 255)
-        exit_message("rgb not coform", tab, 2);
-    obj->color.g = ft_atof(color_temp[1]);
-    if (obj->color.g < 0 || obj->vec3.y > 255)
-        exit_message("rgb not coform", tab, 2);
-    obj->color.b = ft_atof(color_temp[2]);
-    if (obj->color.b < 0 || obj->vec3.z > 255)
-        exit_message("rgb not coform", tab, 2);
-    obj->diameter = ft_atof(obj->info[2]);
-    obj->identifier = attribut_identifier(obj->info[0]);
-    free_tab(color_temp);
+    set_coordinate(index, obj, 1);
+    set_color(index, obj, 3);
+    obj[index]->diameter = ft_atof(obj[index]->info[2]);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[0]);
 }
-void add_plane(t_obj *obj, t_obj **tab)
+void add_plane(int index, t_obj **obj)
 {
     (void)obj;
-    (void)tab;
+    (void)index;
 	return ;
 }
-void add_cylindre(t_obj *obj, t_obj **tab)
+void add_cylindre(int index, t_obj **obj)
 {
     (void)obj;
-    (void)tab;
+    (void)index;
 	return ;
 }
 

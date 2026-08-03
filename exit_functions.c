@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:31:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/31 15:30:42 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/03 19:19:30 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void free_objs(t_obj **obj)
 		i++;
 	}
 	free(obj);
+	exit(2);
 }
 
 void free_tab(char **tab)
