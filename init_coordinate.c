@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 16:46:39 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 13:10:50 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 18:14:45 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void    check_value_coordinate(char *str, t_obj **tab, int flag)
 		{
 			if (str[i] == '.')
 				point = 1;
-			if (!ft_isdigit(str[i]) && str[i] != ',' && str[i] != '.')
+			if (!ft_isdigit(str[i]) && str[i] != ',' && str[i] != '.' && str[i] != '+' && str[i] != '-')
 				exit_message("bad arguments1", tab, 2);
 			if (str[i] == '.' && point == 1)
 				exit_message("bad arguments2", tab, 2);
@@ -94,7 +94,7 @@ void    set_color(int index, t_obj **obj, int cat)
 	while(color_temp[i] != NULL)
 	{
 		if (ft_atof(color_temp[i]) < 0.f || ft_atof(color_temp[i]) > 255.f)
-		{ 
+		{
 			free_tab(color_temp);
 			exit_message("bad arguments color", obj, 2);
 		}
@@ -128,6 +128,43 @@ float  set_ratio_light(int index, t_obj **obj, int cat)
 	if (isinf(result))
 		exit_message("bad argument ration", obj, 2);
 	if (result < 0.f || result > 1.f)
-		exit_message("bad argument ratio", obj, 2);
+		exit_message("bad argument ration", obj, 2);
+	return (result);
+}
+
+float get_magnitude(t_vector vec3)
+{
+	float	x;
+	float	y;
+	float	z;
+	float	result;
+
+	x = pow(vec3.x, 2);
+	y = pow(vec3.y, 2);
+	z = pow(vec3.z, 2);
+	result = sqrt(x + y + z);
+	return (result);
+}
+
+void    set_normalisation(int index, t_obj **obj)
+{
+	float magnitude;
+
+	magnitude = get_magnitude(obj[index]->vec3);
+	obj[index]->norm.x = obj[index]->vec3.x / magnitude;
+	obj[index]->norm.y = obj[index]->vec3.y / magnitude;
+	obj[index]->norm.z = obj[index]->vec3.z / magnitude;
+}
+
+float  set_fov(int index, t_obj **obj, int cat)
+{
+	float	result;
+
+	check_value_coordinate(obj[index]->info[cat], obj, 0);
+	result = ft_atof(obj[index]->info[cat]);
+	if (isinf(result))
+		exit_message("bad argument fov", obj, 2);
+	if (result < 0.f || result > 180.f)
+		exit_message("bad argument fov", obj, 2);
 	return (result);
 }

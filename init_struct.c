@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 13:10:11 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 19:15:26 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_objs(char **argv)
 		if (line == NULL)
 			break ;
 		tab = ft_split(line, '\t');
-		if (attribut_identifier(tab[0]) < 0)
+		if (attribut_identifier(tab[0]) >= 0)
 			count++;
 		free_tab(tab);
 		free (line);
@@ -67,6 +67,31 @@ char 	*clean_line(char **line)
 	return(*line);
 }
 
+void check_doubles(t_obj **obj)
+{
+	int i;
+	int ambiant;
+	int light;
+	int camera;
+
+	i = 0;
+	ambiant = 0;
+	light = 0;
+	camera = 0;
+	while (obj[i])
+	{
+		if (obj[i]->identifier == AMBIENT_LIGHT)
+			ambiant++;
+		if (obj[i]->identifier == LIGHT)
+			light++;
+		if (obj[i]->identifier == CAMERA)
+			camera++;
+		i++;
+	}
+	if (camera != 1 || light != 1 || ambiant != 1)
+		exit_message("scene not complete", obj, 2);
+}
+
 void	init_objets(t_obj **obj, int count, char **argv)
 {
 	int		file;
@@ -97,6 +122,7 @@ void	init_objets(t_obj **obj, int count, char **argv)
 	{
 		attribute_info(j, obj);
 	}
+	check_doubles(obj);
 	printf("Sphere:\n");
 	printf("  Diameter : %f\n", obj[4]->diameter);
 	printf("  Position : x = %f, y = %f, z = %f\n",
@@ -105,9 +131,23 @@ void	init_objets(t_obj **obj, int count, char **argv)
     obj[4]->color.r, obj[4]->color.g, obj[4]->color.b);
 
 	printf("Ambiant light:\n");
-	printf("  Ration : %f\n", obj[0]->lighting);
+	printf("  Ratio : %f\n", obj[0]->lighting);
 	printf("  Color    : r = %f, g = %f, b = %f\n",
     obj[0]->color.r, obj[0]->color.g, obj[0]->color.b);
+
+	printf("Light:\n");
+	printf("  Position : x = %f, y = %f, z = %f\n",
+    obj[2]->vec3.x, obj[2]->vec3.y, obj[2]->vec3.z);
+	printf("  Ratio : %f\n", obj[2]->lighting);
+	printf("  Color    : r = %f, g = %f, b = %f\n",
+    obj[2]->color.r, obj[2]->color.g, obj[2]->color.b);
+
+	printf("Camera:\n");
+	printf("  Position : x = %f, y = %f, z = %f\n",
+    obj[1]->vec3.x, obj[1]->vec3.y, obj[1]->vec3.z);
+	printf("  Norm    : x = %f, y = %f, z = %f\n",
+    obj[1]->norm.x, obj[1]->norm.y, obj[1]->norm.z);
+	printf("  Fov : %f\n", obj[1]->fov);
 	close (file);
 }
 
