@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/03 18:35:47 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 13:07:43 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ int		is_valid(int argc, char **argv);
 int		count_tab(char **tab);
 void	set_coordinate(int index, t_obj **obj, int cat);
 void    set_color(int index, t_obj **obj, int cat);
-void    check_value_coordinate(char *str, t_obj **tab);
+float	set_size(int index, t_obj **obj, int cat);
+void    check_value_coordinate(char *str, t_obj **tab, int flag);
+float	set_ratio_light(int index, t_obj **obj, int cat);
 void	add_ambiant(int index, t_obj **obj);
 void	add_light(int index, t_obj **obj);
 void	add_camera(int index, t_obj **obj);

@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:40:01 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/03 20:47:29 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 12:37:36 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	count_tab(char **tab)
 int attribut_identifier(char *identifier)
 {
 	if(strcmp(identifier, "L") == 0)
-		return (LIGHT);
+		return (LIGHT); 
 	else if(strcmp(identifier, "C") == 0)
 		return (CAMERA);
 	else if(strcmp(identifier, "A") == 0)
