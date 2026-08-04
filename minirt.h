@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 13:07:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 18:04:55 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_obj
 {
 	int			identifier;
 	t_vector	vec3;
-	t_vector	rot3;
+	t_vector	norm;
 	t_color		color;
 	float		diameter;
 	float		height;
@@ -114,6 +114,8 @@ void    set_color(int index, t_obj **obj, int cat);
 float	set_size(int index, t_obj **obj, int cat);
 void    check_value_coordinate(char *str, t_obj **tab, int flag);
 float	set_ratio_light(int index, t_obj **obj, int cat);
+void    set_normalisation(int index, t_obj **obj);
+float  set_fov(int index, t_obj **obj, int cat);
 void	add_ambiant(int index, t_obj **obj);
 void	add_light(int index, t_obj **obj);
 void	add_camera(int index, t_obj **obj);
@@ -126,7 +128,7 @@ void	add_cylindre(int index, t_obj **obj);
 //////////////////////////////
 
 float    ft_atof(const char *nptr);
-
+float	get_magnitude(t_vector vec3);
 
 //////////////////////////////
 /*			EXIT			*/

@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 13:08:26 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 18:54:34 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,21 @@ void add_ambiant(int index, t_obj **obj)
 
 void add_light(int index, t_obj **obj)
 {
-    (void)obj;
-    (void)index;
-	return ;
+    if (count_tab (obj[index]->info) > 4)
+        exit_message("bad number of arguments", obj, 2);
+    set_coordinate(index, obj, L_COOR);
+    set_color(index, obj, L_COLOR);
+    obj[index]->lighting = set_ratio_light(index, obj, L_RATIO);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[L_ID]);
 }
 void add_camera(int index, t_obj **obj)
 {
-    (void)obj;
-    (void)index;
-	return ;
+    if (count_tab (obj[index]->info) > 4)
+        exit_message("bad number of arguments", obj, 2);
+    set_coordinate (index, obj, C_COOR);
+    set_normalisation (index, obj);
+    set_fov(index, obj, C_FOV);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[C_ID]);
 }
 
 void add_sphere(int index, t_obj **obj)
@@ -44,18 +50,26 @@ void add_sphere(int index, t_obj **obj)
     obj[index]->identifier = attribut_identifier(obj[index]->info[S_ID]);
 }
 
-
 void add_plane(int index, t_obj **obj)
 {
-    (void)obj;
-    (void)index;
-	return ;
+    if (count_tab (obj[index]->info) > 4)
+        exit_message("bad number of arguments", obj, 2);
+    set_coordinate(index, obj, P_COOR);
+    set_normalisation (index, obj);
+    set_color(index, obj, P_COLOR);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[P_ID]);
 }
+
 void add_cylindre(int index, t_obj **obj)
 {
-    (void)obj;
-    (void)index;
-	return ;
+    if (count_tab (obj[index]->info) > 6)
+        exit_message("bad number of arguments", obj, 2);
+    //set_coordinate (index, obj, CY_COOR);
+    set_color(index, obj, CY_COLOR);
+    obj[index]->diameter = set_size(index, obj, CY_DIAM);
+    obj[index]->height = set_size(index, obj, CY_HEIGHT);
+    set_normalisation (index, obj);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[CY_ID]);
 }
 
 float    ft_atof(const char *nptr)
