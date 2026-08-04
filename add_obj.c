@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/03 19:11:07 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 13:08:26 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void add_ambiant(int index, t_obj **obj)
 {
-    (void)obj;
-    (void)index;
-	return ;
+    if (count_tab (obj[index]->info) > 3)
+        exit_message("bad number of arguments", obj, 2);
+    set_color(index, obj, A_COLOR);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[A_ID]);
+    obj[index]->lighting = set_ratio_light(index, obj, A_RATIO);
 }
+
 void add_light(int index, t_obj **obj)
 {
     (void)obj;
@@ -33,11 +36,15 @@ void add_camera(int index, t_obj **obj)
 
 void add_sphere(int index, t_obj **obj)
 {
-    set_coordinate(index, obj, 1);
-    set_color(index, obj, 3);
-    obj[index]->diameter = ft_atof(obj[index]->info[2]);
-    obj[index]->identifier = attribut_identifier(obj[index]->info[0]);
+    if (count_tab (obj[index]->info) > 4)
+        exit_message("bad number of arguments", obj, 2);
+    set_coordinate(index, obj, S_COOR);
+    set_color(index, obj, S_COLOR);
+    obj[index]->diameter = set_size(index, obj, S_DIAM);
+    obj[index]->identifier = attribut_identifier(obj[index]->info[S_ID]);
 }
+
+
 void add_plane(int index, t_obj **obj)
 {
     (void)obj;

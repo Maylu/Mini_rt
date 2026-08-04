@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/03 21:16:08 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/04 13:10:11 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ void	init_objets(t_obj **obj, int count, char **argv)
     obj[4]->vec3.x, obj[4]->vec3.y, obj[4]->vec3.z);
 	printf("  Color    : r = %f, g = %f, b = %f\n",
     obj[4]->color.r, obj[4]->color.g, obj[4]->color.b);
+
+	printf("Ambiant light:\n");
+	printf("  Ration : %f\n", obj[0]->lighting);
+	printf("  Color    : r = %f, g = %f, b = %f\n",
+    obj[0]->color.r, obj[0]->color.g, obj[0]->color.b);
 	close (file);
 }
 
