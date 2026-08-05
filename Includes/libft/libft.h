@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 10:57:08 by gcamara           #+#    #+#             */
-/*   Updated: 2025/11/13 11:16:33 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/05 17:04:04 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <bsd/string.h>
+//# include <bsd/string.h>
 # include <stddef.h>
 # include <unistd.h>
 # include <fcntl.h>
+
+# ifdef __linux__
+#  include <bsd/string.h>
+# endif
 
 typedef struct s_list
 {
