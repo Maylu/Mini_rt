@@ -6,11 +6,30 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 16:46:39 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 18:14:45 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/05 15:52:29 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+int count_sign(char *str)
+{
+	int i;
+	int sign_P;
+	int sign_N;
+
+	i = 0;
+	sign_P = 0;
+	sign_N = 0;
+	while (str[i] != '\0')
+	{
+		if ((str[i] == '+' || str[i] == '-')
+				&& (!(ft_isdigit(str[i + 1]))))
+				return (1);
+		i++;
+	}
+	return (0);
+}
 
 void    check_value_coordinate(char *str, t_obj **tab, int flag)
 {
@@ -18,6 +37,9 @@ void    check_value_coordinate(char *str, t_obj **tab, int flag)
 	int point = 0;
 
 	i = 0;
+
+	if (count_sign(str))
+		exit_message("bad arguments1", tab, 2);
 	if (flag == 1)
 	{
 		while (str[i] != '\0')
@@ -37,7 +59,7 @@ void    check_value_coordinate(char *str, t_obj **tab, int flag)
 	{
 		while (str[i] != '\0')
 		{
-			if (!ft_isdigit(str[i]) && str[i] != '.')
+			if (!ft_isdigit(str[i]) && str[i] != '.' && str[i] != '+' && str[i] != '-')
 				exit_message("bad arguments1", tab, 2);
 			i++;
 		}
@@ -45,8 +67,8 @@ void    check_value_coordinate(char *str, t_obj **tab, int flag)
 }
 //DONE: check value coor and ajust for 1.2.3 for exemple
 
-//TODO: handle Camera ambient and light object bool
-//TODO: handle scene with minimun object C L and A
+//DONE: handle Camera ambient and light object bool
+//DONE: handle scene with minimun object C L and A
 //DONE: handle 1. to be 1.0
 //TODO: continue with others objets
 
@@ -146,10 +168,13 @@ float get_magnitude(t_vector vec3)
 	return (result);
 }
 
-void    set_normalisation(int index, t_obj **obj)
+void    set_normalisation(int index, t_obj **obj, int cat)
 {
+	char **norm_temp;
 	float magnitude;
 
+	check_value_coordinate(obj[index]->info[cat], obj, 1);
+	norm_temp = ft_split(obj[index]->info[cat], ',');
 	magnitude = get_magnitude(obj[index]->vec3);
 	obj[index]->norm.x = obj[index]->vec3.x / magnitude;
 	obj[index]->norm.y = obj[index]->vec3.y / magnitude;
