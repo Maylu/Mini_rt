@@ -1,7 +1,6 @@
 NAME = minirt
 CC = cc 
-
-CFLAGS = -Wall -Wextra -Werror -g3 -I. -I$(LIBFT_DIR) -I$(GNL_DIR)
+UNAME_S := $(shell uname -s)
 
 MLXFLAG = -lmlx -Imlx -lXext -lX11 -lm -lz
 MLX_DIR = mlx
@@ -12,6 +11,15 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 GNL_DIR = Includes/GNL
 GNL = $(GNL_DIR)/gnl.a
+
+CFLAGS = -Wall -Wextra -Werror -g3 -I. -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
+
+ifeq ($(UNAME_S), Darwin)
+    MLXFLAG = -L/opt/X11/lib -I/opt/X11/include -lmlx -lXext -lX11 -lm -lz
+    CFLAGS += -I/opt/X11/include
+else
+    MLXFLAG = -lmlx -lXext -lX11 -lm -lz
+endif
 
 SRCS = $(C_FILES)
 INC = -I includes
@@ -25,6 +33,9 @@ $(NAME): $(OBJS) $(LIBFT) $(GNL)
 
 %.o: %.c $(MLX_LIB)
 	${CC} ${CFLAGS} -I${MLX_DIR} -O0 -c $< -o $@
+
+$(MLX_LIB):
+	make -C $(MLX_DIR)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
