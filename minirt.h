@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 02:32:30 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:32:19 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,18 @@ typedef struct s_color
 	float		b;
 }		t_color;
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		h;
+	int		w;
+	void	*mlx;
+	void	*mlx_win;
+}				t_data;
+
 typedef struct s_obj
 {
 	int			identifier;
@@ -94,6 +106,8 @@ typedef struct s_obj
 	float		fov;
 	char		**info;
 }			t_obj;
+
+
 
 typedef void (*atributs)(int index, t_obj **obj);
 
@@ -114,7 +128,7 @@ void    set_color(int index, t_obj **obj, int cat);
 float	set_size(int index, t_obj **obj, int cat);
 void    check_value_coordinate(char *str, t_obj **tab, int flag);
 float	set_ratio_light(int index, t_obj **obj, int cat);
-void    set_normalisation(int index, t_obj **obj);
+void    set_normalisation(int index, t_obj **obj, int cat);
 float  set_fov(int index, t_obj **obj, int cat);
 void	add_ambiant(int index, t_obj **obj);
 void	add_light(int index, t_obj **obj);
@@ -134,6 +148,15 @@ t_vector	vector_sub(t_vector a, t_vector b);
 t_vector    vector_mult(t_vector v, float s);
 t_vector    ray_position(t_vector origin, t_vector direction, float t);
 float		dot_product(t_vector a, t_vector b);
+
+//////////////////////////////
+/*			MLX			*/
+//////////////////////////////
+
+void	init_mlx(void);
+int		close_window(t_data *img);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		move_window(int keycode, t_data *img);
 
 //////////////////////////////
 /*			EXIT			*/

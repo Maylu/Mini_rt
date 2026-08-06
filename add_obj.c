@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 18:54:34 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/06 12:22:19 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void add_camera(int index, t_obj **obj)
     if (count_tab (obj[index]->info) > 4)
         exit_message("bad number of arguments", obj, 2);
     set_coordinate (index, obj, C_COOR);
-    set_normalisation (index, obj);
+    set_normalisation (index, obj, C_NORM);
     set_fov(index, obj, C_FOV);
     obj[index]->identifier = attribut_identifier(obj[index]->info[C_ID]);
 }
@@ -55,7 +55,7 @@ void add_plane(int index, t_obj **obj)
     if (count_tab (obj[index]->info) > 4)
         exit_message("bad number of arguments", obj, 2);
     set_coordinate(index, obj, P_COOR);
-    set_normalisation (index, obj);
+    set_normalisation (index, obj, P_NORM);
     set_color(index, obj, P_COLOR);
     obj[index]->identifier = attribut_identifier(obj[index]->info[P_ID]);
 }
@@ -64,11 +64,11 @@ void add_cylindre(int index, t_obj **obj)
 {
     if (count_tab (obj[index]->info) > 6)
         exit_message("bad number of arguments", obj, 2);
-    //set_coordinate (index, obj, CY_COOR);
+    set_coordinate (index, obj, CY_COOR);
     set_color(index, obj, CY_COLOR);
     obj[index]->diameter = set_size(index, obj, CY_DIAM);
     obj[index]->height = set_size(index, obj, CY_HEIGHT);
-    set_normalisation (index, obj);
+    set_normalisation (index, obj, CY_NORM);
     obj[index]->identifier = attribut_identifier(obj[index]->info[CY_ID]);
 }
 
