@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 18:40:14 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 18:48:34 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,6 @@ typedef struct s_obj
 
 
 
-
-
 typedef void (*atributs)(int index, t_obj **obj);
 
 //////////////////////////////
@@ -150,6 +148,8 @@ t_vector	vector_sub(t_vector a, t_vector b);
 t_vector    vector_mult(t_vector v, float s);
 t_vector    ray_position(t_vector origin, t_vector direction, float t);
 float		dot_product(t_vector a, t_vector b);
+int			intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t);
+int			intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t);
 
 //////////////////////////////
 /*			MLX			*/
