@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/05 17:07:43 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 02:32:30 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,13 @@ void	add_cylindre(int index, t_obj **obj);
 /*			MATH			*/
 //////////////////////////////
 
-float    ft_atof(const char *nptr);
-float	get_magnitude(t_vector vec3);
+float		ft_atof(const char *nptr);
+float		get_magnitude(t_vector vec3);
+t_vector 	vector_add(t_vector a, t_vector b);
+t_vector	vector_sub(t_vector a, t_vector b);
+t_vector    vector_mult(t_vector v, float s);
+t_vector    ray_position(t_vector origin, t_vector direction, float t);
+float		dot_product(t_vector a, t_vector b);
 
 //////////////////////////////
 /*			EXIT			*/
