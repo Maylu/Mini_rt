@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/06 17:55:39 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 18:32:40 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,19 @@ int	intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t
 		return (0);
 	*t = (-b - sqrtf(delta)) / (2 * a);
 	return (1);
+}
+
+int intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t)
+{
+    float   denominator;
+    t_vector point_to_origin;
+
+    denominator = dot_product(direction, plane.norm);
+    if (fabsf(denominator) < 0.000001f)
+        return (0);
+    point_to_origin = vector_sub(plane.vec3, origin);
+    *t = dot_product(point_to_origin, plane.norm) / denominator;
+    if (*t < 0)
+        return (0);
+    return (1);
 }
