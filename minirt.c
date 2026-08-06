@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/05 17:07:41 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 14:33:19 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	printf ("%d\n", count);
 	obj = init_structs(obj, count);
 	init_objets(obj, count, argv);
+	init_mlx();
 	free_objs(obj);
 	//exit_message("Error/n", obj, 2);
 	return (0);
