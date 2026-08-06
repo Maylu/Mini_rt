@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 01:00:18 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/06 02:32:28 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:25:54 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_vector	vector_mult(t_vector v, float s)
 	return (result);
 }
 
-t_vector	ray_position(t_vector origin, t_vector direction, float t)
+t_vector	ray_position(t_vector origin, t_vector direction, double t)
 {
 	t_vector	displacement;
 	t_vector	final_position;

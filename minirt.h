@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 02:32:30 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:25:42 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_obj
 	char		**info;
 }			t_obj;
 
+
+
 typedef void (*atributs)(int index, t_obj **obj);
 
 //////////////////////////////
@@ -115,7 +117,7 @@ float	set_size(int index, t_obj **obj, int cat);
 void    check_value_coordinate(char *str, t_obj **tab, int flag);
 float	set_ratio_light(int index, t_obj **obj, int cat);
 void    set_normalisation(int index, t_obj **obj);
-float  set_fov(int index, t_obj **obj, int cat);
+float	set_fov(int index, t_obj **obj, int cat);
 void	add_ambiant(int index, t_obj **obj);
 void	add_light(int index, t_obj **obj);
 void	add_camera(int index, t_obj **obj);
