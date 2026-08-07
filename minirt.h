@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 14:32:19 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/06 18:48:34 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ float	set_size(int index, t_obj **obj, int cat);
 void    check_value_coordinate(char *str, t_obj **tab, int flag);
 float	set_ratio_light(int index, t_obj **obj, int cat);
 void    set_normalisation(int index, t_obj **obj, int cat);
-float  set_fov(int index, t_obj **obj, int cat);
+float	set_fov(int index, t_obj **obj, int cat);
 void	add_ambiant(int index, t_obj **obj);
 void	add_light(int index, t_obj **obj);
 void	add_camera(int index, t_obj **obj);
@@ -148,6 +148,8 @@ t_vector	vector_sub(t_vector a, t_vector b);
 t_vector    vector_mult(t_vector v, float s);
 t_vector    ray_position(t_vector origin, t_vector direction, float t);
 float		dot_product(t_vector a, t_vector b);
+int			intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t);
+int			intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t);
 
 //////////////////////////////
 /*			MLX			*/

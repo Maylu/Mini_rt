@@ -24,6 +24,7 @@ endif
 SRCS = $(C_FILES)
 INC = -I includes
 C_FILES = minirt.c exit_functions.c init_utils.c init_struct.c add_obj.c init_coordinate.c mlx_init.c \
+		  vector_math.c intersections.c
 
 OBJS = $(SRCS:.c=.o)
 all: $(NAME) 

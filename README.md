@@ -23,5 +23,8 @@ https://medium.com/@mansurimohamad92/the-mathematics-behind-the-minirt-42-projec
 - Implementing the Raytracing Algorithm :
 https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing//implementing-the-raytracing-algorithm.html
 
+- Determining plane intersection with a ray :
+https://math.stackexchange.com/questions/4402134/determining-plane-intersection-with-a-ray?utm_source=perplexity
+
 - BUCK James, The Ray Tracer Challenge: A Test-Driven Guide to Your First 3D Renderer, 2019, The Pragmatic Programmers.
 http://raytracerchallenge.com/
