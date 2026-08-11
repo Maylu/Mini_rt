@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/06 18:32:40 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/07 18:25:18 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,32 @@ int	intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t
 	*t = (-b - sqrtf(delta)) / (2 * a);
 	return (1);
 }
+
+/*int	intersect_sphere(t_obj *sphere, t_ray *r)
+{
+	float			delta;
+    float       	radius;
+	t_vector		origin_to_center;
+	t_vector		i;
+
+    radius = sphere->diameter / 2;
+	origin_to_center = vector_sub(r->o, sphere->vec3);
+	i.x = dot_product(r->dir, r->dir);
+	i.y = -2.0f * dot_product(r->dir, origin_to_center);
+	i.z = dot_product(origin_to_center, origin_to_center) - radius * radius;
+	delta = i.y * i.y - 4 * i.x * i.z;
+	if (delta < 0)
+		return (0);
+	if (delta == 0)
+		return (1);
+	return (2);
+}*/
+
+/*void world_intersect (t_obj **sphere, t_ray *r)
+{
+	//if (intersect_sphere(sphere, r))
+
+}*/
 
 int intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t)
 {

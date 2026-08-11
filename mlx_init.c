@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 13:56:48 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 15:17:09 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/11 14:13:48 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,57 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	close_window(t_data *img)
+int	close_window(t_world *w)
 {
-	(void)img;
-	exit(0);
-	//exit_message("Closed\n", &g, 0);
+	if (w->mlx.img)
+		mlx_destroy_image(w->mlx.mlx, w->mlx.img);
+	if (w->mlx.mlx_win)
+		mlx_destroy_window(w->mlx.mlx, w->mlx.mlx_win);
+	mlx_destroy_display(w->mlx.mlx);
+	free(w->mlx.mlx);
+	exit_message("OK", w, 0);
 	return (0);
 }
 
-int	move_window(int keycode, t_data *img)
+int	move_window(int keycode, t_world *w)
 {
-	(void)img;
 	if (keycode == XK_Escape)
-		exit(0);
-		//exit_message("Closed\n", &g, 0);
+	{
+		if (w->mlx.img)
+			mlx_destroy_image(w->mlx.mlx, w->mlx.img);
+		if (w->mlx.mlx_win)
+			mlx_destroy_window(w->mlx.mlx, w->mlx.mlx_win);
+		mlx_destroy_display(w->mlx.mlx);
+		free(w->mlx.mlx);
+		exit_message("OK", w, 0);
+	}
 	return (0);
 }
 
-void	init_mlx(void)
+void	init_mlx(t_world *w)
 {
-	t_data	img;
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	img.mlx = mlx_init();
-	img.mlx_win = mlx_new_window(img.mlx, 500, 500, "Hello world!");
-	img.img = mlx_new_image(img.mlx, 500, 500);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	w->mlx.mlx = mlx_init();
+	w->mlx.mlx_win = mlx_new_window(w->mlx.mlx, 500, 500, "Minirt");
+	w->mlx.img = mlx_new_image(w->mlx.mlx, 500, 500);
+	w->mlx.addr = mlx_get_data_addr(w->mlx.img, &w->mlx.bits_per_pixel, &w->mlx.line_length, &w->mlx.endian);
 	while(i < 500)
 	{
 		j = 0;
 		while (j < 500)
 		{
-			my_mlx_pixel_put(&img, i, j, 0x00FF0000);
-			++j;
+			my_mlx_pixel_put(&w->mlx, i, j, 0x00FF0000);
+			++j;		//exit_message("Closed\n", w->objs, 0);
+
 		}
 		++i;
 	}
-	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
-	mlx_hook(img.mlx_win, 17, 0, (void*)close_window, &img);
-	mlx_hook(img.mlx_win, 2, 1, (void*)move_window, &img);
-	mlx_loop(img.mlx);
+	mlx_put_image_to_window(w->mlx.mlx, w->mlx.mlx_win, w->mlx.img, 0, 0);
+	mlx_hook(w->mlx.mlx_win, 17, 0, (void*)close_window, w);
+	mlx_hook(w->mlx.mlx_win, 2, 1, (void*)move_window, w);
+	mlx_loop(w->mlx.mlx);
 }

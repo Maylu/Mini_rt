@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:13:42 by gcamara           #+#    #+#             */
-/*   Updated: 2026/07/28 16:05:26 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/11 14:39:27 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../libft/libft.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 1
 # endif
 
 //size_t	ft_strlen(const char *s);
