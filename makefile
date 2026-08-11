@@ -30,6 +30,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT) $(GNL)
+	find . -name 'vgcore.*' -exec rm {} \;
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(GNL) -L $(MLX_DIR) $(MLXFLAG) -o $(NAME)
 
 %.o: %.c $(MLX_LIB)

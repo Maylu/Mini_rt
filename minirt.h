@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 18:48:34 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:46:29 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@
 # define CY_HEIGHT 4
 # define CY_COLOR 5
 
+# define WIDTH 480
+
 enum e_identifier
 {
 	AMBIENT_LIGHT,
@@ -73,16 +75,17 @@ typedef struct s_vector
 	float	x;
 	float	y;
 	float	z;
-}		t_vector;
+}			t_vector;
 
 typedef struct s_color
 {
 	float		r;
 	float		g;
 	float		b;
-}		t_color;
+}			t_color;
 
-typedef struct	s_data {
+typedef struct	s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -104,38 +107,64 @@ typedef struct s_obj
 	float		height;
 	float		lighting;
 	float		fov;
-	char		**info;
 }			t_obj;
 
+typedef struct s_world
+{
+	t_obj 	**form;
+	t_obj 	*light;
+	t_obj 	*ambient;
+	t_obj 	*camera;
+	t_data	mlx;
+	int 	count_form;
+	int		is_light;
+	int		is_ambient;
+	int		is_camera;
+	int		index;
+	char		**info;
+	float		ratio;
+	float		v_width;
+	float		v_height;
+	t_vector		u;
+	t_vector		v;
+	float	pixel_u;
+	float	pixel_v;
+}			t_world;
 
+typedef struct s_ray
+{
+	t_vector o;
+	t_vector dir;
+}			t_ray;
 
-typedef void (*atributs)(int index, t_obj **obj);
+typedef	void (*t_atributs)(t_world *w);
 
 //////////////////////////////
 /*			INIT			*/
 //////////////////////////////
 
-int		count_objs(char **argv);
-void	init_objets(t_obj **obj, int count, char **argv);
-t_obj	**init_structs(t_obj **obj, int count);
+int		count_objs(char **argv, t_world *w);
+void	init_objets(t_world *w, int count, char **argv);
+void	init_structs(t_world *w, int count);
 int		ft_strcmp(const char *s1, const char *s2);
 int		attribut_identifier(char *identifier);
-void	attribute_info(int index, t_obj **obj);
+void	attribute_info(int type, t_world *w);
 int		is_valid(int argc, char **argv);
 int		count_tab(char **tab);
-void	set_coordinate(int index, t_obj **obj, int cat);
-void    set_color(int index, t_obj **obj, int cat);
-float	set_size(int index, t_obj **obj, int cat);
-void    check_value_coordinate(char *str, t_obj **tab, int flag);
-float	set_ratio_light(int index, t_obj **obj, int cat);
-void    set_normalisation(int index, t_obj **obj, int cat);
-float	set_fov(int index, t_obj **obj, int cat);
-void	add_ambiant(int index, t_obj **obj);
-void	add_light(int index, t_obj **obj);
-void	add_camera(int index, t_obj **obj);
-void	add_sphere(int index, t_obj **obj);
-void	add_plane(int index, t_obj **obj);
-void	add_cylindre(int index, t_obj **obj);
+void	check_doubles(t_world *w, char * tab);
+void    set_color(t_world *w, t_obj *obj, int cat);
+void	set_coordinate(t_world *w, t_obj *obj, int cat);
+float	set_size(t_world *w, int cat);
+void    check_value_coordinate(char *str, t_world *w, int flag);
+float 	set_ratio_light(t_world *w, int cat);
+void    set_normalisation(t_world *w, t_obj *obj, int cat);
+float	set_fov(t_world *w, int cat);
+void	add_ambiant(t_world *w);
+void	add_light(t_world *w);
+void	add_camera(t_world *w);
+void	add_sphere(t_world *w);
+void	add_plane(t_world *w);
+void	add_cylindre(t_world *w);
 
 //////////////////////////////
 /*			MATH			*/
@@ -155,10 +184,10 @@ int			intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t
 /*			MLX			*/
 //////////////////////////////
 
-void	init_mlx(void);
-int		close_window(t_data *img);
+void	init_mlx(t_world *w);
+int		close_window(t_world *w);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		move_window(int keycode, t_data *img);
+int		move_window(int keycode, t_world *w);
 
 //////////////////////////////
 /*			EXIT			*/
@@ -166,6 +195,6 @@ int		move_window(int keycode, t_data *img);
 
 void	free_tab(char **tab);
 void	free_objs(t_obj **obj);
-void	exit_message(char *message, t_obj **obj, int code);
+void	exit_message(char *message, t_world *w, int code);
 
 #endif
