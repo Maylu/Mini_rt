@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:31:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/03 19:19:30 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/11 15:11:00 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ void free_objs(t_obj **obj)
 	i = 0;
 	while (obj[i])
 	{
-		free_tab(obj[i]->info);
 		free(obj[i]);
 		i++;
 	}
 	free(obj);
-	exit(2);
 }
 
 void free_tab(char **tab)
@@ -40,8 +38,14 @@ void free_tab(char **tab)
 	free(tab);
 }
 
-void exit_message(char *message, t_obj **obj, int code)
+void exit_message(char *message, t_world *w, int code)
 {
 	write(code, message, ft_strlen(message));
-	free_objs(obj);
+	free(w->ambient);
+	free(w->light);
+	free(w->camera);
+	if(w->info)
+		free_tab(w->info);
+	free_objs(w->form);
+	exit(code);
 }

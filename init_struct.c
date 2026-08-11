@@ -6,13 +6,13 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/04 19:15:26 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/11 14:56:36 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	count_objs(char **argv)
+int	count_objs(char **argv, t_world *w)
 {
 	int		file;
 	int		count;
@@ -29,32 +29,44 @@ int	count_objs(char **argv)
 		tab = ft_split(line, '\t');
 		if (attribut_identifier(tab[0]) >= 0)
 			count++;
+		check_doubles(w, tab[0]);
 		free_tab(tab);
 		free (line);
 		line = NULL;
 	}
 	close (file);
+	if (w->is_camera != 1 || w->is_light != 1 || w->is_ambient != 1)
+		exit(0);
 	return (count);
 }
 
-t_obj	**init_structs(t_obj **obj, int count)
+void	init_structs(t_world *w, int count)
 {
 	int	i;
 
 	i = 0;
-	obj = malloc(sizeof(t_obj *) * (count + 1));
-	if (obj == NULL)
+	w->count_form = count - 3;
+	w->form = malloc(sizeof(t_obj *) *(w->count_form + 1));
+	if (w->form == NULL)
 		exit(1);
-	while (i < count)
+	while (i < (w->count_form))
 	{
-		obj[i] = malloc(sizeof(t_obj));
-		if (obj[i] == NULL)
+		w->form[i] = malloc(sizeof(t_obj));
+		if (w->form[i] == NULL)
 			exit(1);
-		ft_memset(obj[i], 0, sizeof(t_obj));
+		ft_memset(w->form[i], 0, sizeof(t_obj));
 		i++;
 	}
-	obj[i] = NULL;
-	return (obj);
+	w->form[i] = NULL;
+	w->camera = malloc(sizeof(t_obj));
+	if (w->form == NULL)
+		exit(1);
+	w->ambient = malloc(sizeof(t_obj));
+	if (w->form == NULL)
+		exit(1);
+	w->light = malloc(sizeof(t_obj));
+	if (w->form == NULL)
+		exit(1);
 }
 
 char 	*clean_line(char **line)
@@ -67,39 +79,22 @@ char 	*clean_line(char **line)
 	return(*line);
 }
 
-void check_doubles(t_obj **obj)
+void check_doubles(t_world *w, char *tab)
 {
-	int i;
-	int ambiant;
-	int light;
-	int camera;
-
-	i = 0;
-	ambiant = 0;
-	light = 0;
-	camera = 0;
-	while (obj[i])
-	{
-		if (obj[i]->identifier == AMBIENT_LIGHT)
-			ambiant++;
-		if (obj[i]->identifier == LIGHT)
-			light++;
-		if (obj[i]->identifier == CAMERA)
-			camera++;
-		i++;
-	}
-	if (camera != 1 || light != 1 || ambiant != 1)
-		exit_message("scene not complete", obj, 2);
+	if (attribut_identifier(tab) == CAMERA)
+		w->is_camera++;
+	if (attribut_identifier(tab) == LIGHT)
+		w->is_light++;
+	if (attribut_identifier(tab) == CAMERA)
+		w->is_ambient++;
 }
 
-void	init_objets(t_obj **obj, int count, char **argv)
+void	init_objets(t_world *w, int count, char **argv)
 {
 	int		file;
 	char	*line;
-	int		i;
 
 	(void)count;
-	i = 0;
 	file = open(argv[1], O_RDONLY);
 	while (1)
 	{
@@ -107,35 +102,44 @@ void	init_objets(t_obj **obj, int count, char **argv)
 		if (line == NULL)
 			break ;
 		line = clean_line(&line);
-		obj[i]->info = ft_split(line, '\t');
-		if (obj[i]->info[0] == NULL || attribut_identifier(obj[i]->info[0]) < 0 )
+		w->info = ft_split(line, '\t');
+		if (w->info[0] == NULL || attribut_identifier(w->info[0]) < 0 )
 		{
-			free_tab(obj[i]->info);
+			free_tab(w->info);
+			w->info = NULL;
 			free(line);
+			line = NULL;
 			continue;
 		}
 		free (line);
 		line = NULL;
-		i++;
+		attribute_info(attribut_identifier(w->info[0]), w);
+		if(attribut_identifier(w->info[0]) > 2)
+			w->index++;
+		free_tab(w->info);
+		w->info = NULL;
 	}
-	for (int j = 0;  obj[j]; j++)
-	{
-		attribute_info(j, obj);
-	}
-	check_doubles(obj);
 	printf("Sphere:\n");
-	printf("  Diameter : %f\n", obj[4]->diameter);
+	printf("  Diameter : %f\n", w->form[1]->diameter);
 	printf("  Position : x = %f, y = %f, z = %f\n",
-    obj[4]->vec3.x, obj[4]->vec3.y, obj[4]->vec3.z);
+    w->form[1]->vec3.x, w->form[1]->vec3.y, w->form[1]->vec3.z);
 	printf("  Color    : r = %f, g = %f, b = %f\n",
-    obj[4]->color.r, obj[4]->color.g, obj[4]->color.b);
+    w->form[1]->color.r, w->form[1]->color.g, w->form[1]->color.b);
+	printf("Plane:\n");
+	printf("  Position : x = %f, y = %f, z = %f\n",
+    w->form[0]->vec3.x, w->form[0]->vec3.y, w->form[0]->vec3.z);
+	printf("  Norm : x = %f, y = %f, z = %f\n",
+    w->form[0]->norm.x, w->form[0]->norm.y, w->form[0]->norm.z);
+	printf("  Color    : r = %f, g = %f, b = %f\n",
+    w->form[0]->color.r, w->form[0]->color.g, w->form[0]->color.b);
+
 
 	printf("Ambiant light:\n");
-	printf("  Ratio : %f\n", obj[0]->lighting);
+	printf("  Ratio : %f\n", w->ambient->lighting);
 	printf("  Color    : r = %f, g = %f, b = %f\n",
-    obj[0]->color.r, obj[0]->color.g, obj[0]->color.b);
+    w->ambient->color.r, w->ambient->color.g, w->ambient->color.b);
 
-	printf("Light:\n");
+	/*printf("Light:\n");
 	printf("  Position : x = %f, y = %f, z = %f\n",
     obj[2]->vec3.x, obj[2]->vec3.y, obj[2]->vec3.z);
 	printf("  Ratio : %f\n", obj[2]->lighting);
@@ -147,16 +151,14 @@ void	init_objets(t_obj **obj, int count, char **argv)
     obj[1]->vec3.x, obj[1]->vec3.y, obj[1]->vec3.z);
 	printf("  Norm    : x = %f, y = %f, z = %f\n",
     obj[1]->norm.x, obj[1]->norm.y, obj[1]->norm.z);
-	printf("  Fov : %f\n", obj[1]->fov);
+	printf("  Fov : %f\n", obj[1]->fov);*/
 	close (file);
 }
 
-void	attribute_info(int index, t_obj **obj)
+void	attribute_info(int type, t_world *w)
 {
-	atributs	f[6];
-	int			i;
+	t_atributs	f[6];
 
-	i = 0;
 	f[0] = &add_ambiant;
 	f[1] = &add_light;
 	f[2] = &add_camera;
@@ -164,10 +166,17 @@ void	attribute_info(int index, t_obj **obj)
 	f[4] = &add_plane;
 	f[5] = &add_cylindre;
 
-	while (i < 6)
+	f[type](w);
+	/*while (i < 6)
 	{
-		if (i == attribut_identifier(obj[index]->info[0]))
+		if (i == attribut_identifier(w->form[index]->info[0]))
 			f[i](index, obj);
 		i++;
 	}
+	if (attribut_identifier(info[0]) == CAMERA)
+		f[2](index, obj);
+	else if (attribut_identifier(info[0]) == LIGHT)
+		f[1](index, obj);
+	else if (attribut_identifier(info[0]) == AMBIENT_LIGHT)
+		f[0](index, obj);*/
 }
