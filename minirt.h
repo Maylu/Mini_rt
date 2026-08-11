@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/06 18:48:34 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/12 00:29:48 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,20 @@ typedef struct s_obj
 	char		**info;
 }			t_obj;
 
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	t1;
+	float	t2;
+}			t_quadratic;
 
+typedef struct s_ray
+{
+	t_vector	origin;
+	t_vector	direction;
+}				t_ray;
 
 typedef void (*atributs)(int index, t_obj **obj);
 
@@ -148,8 +161,12 @@ t_vector	vector_sub(t_vector a, t_vector b);
 t_vector    vector_mult(t_vector v, float s);
 t_vector    ray_position(t_vector origin, t_vector direction, float t);
 float		dot_product(t_vector a, t_vector b);
-int			intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t);
-int			intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t);
+int			intersect_sphere(t_ray ray, t_obj sphere, float *t);
+int			intersect_plane(t_ray ray, t_obj plane, float *t);
+int			intersect_cylinder(t_ray ray, t_obj cylinder, float *t);
+int			solve_quadratic(t_quadratic *quad);
+int 		is_inside_cylinder(t_ray ray, t_obj cylinder, float t);
+int			get_closest_cylinder_t(t_ray ray, t_obj cylinder, t_quadratic quad, float *t);
 
 //////////////////////////////
 /*			MLX			*/

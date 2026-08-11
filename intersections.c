@@ -6,44 +6,68 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/06 18:32:40 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/12 00:35:42 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t)
+int	intersect_sphere(t_ray ray, t_obj sphere, float *t)
 {
 	t_vector	origin_to_center;
-	float		a;
-	float		b;
-	float		c;
-	float		delta;
-    float       radius;
+	t_quadratic	quad;
+	float		radius;
 
-    radius = sphere.diameter / 2;
-	origin_to_center = vector_sub(origin, sphere.vec3);
-	a = dot_product(direction, direction);
-	b = 2.0f * dot_product(direction, origin_to_center);
-	c = dot_product(origin_to_center, origin_to_center) - radius * radius;
-	delta = b * b - 4 * a * c;
-	if (delta < 0)
+	radius = sphere.diameter / 2;
+	origin_to_center = vector_sub(ray.origin, sphere.vec3);
+	quad.a = dot_product(ray.direction, ray.direction);
+	quad.b = 2.0f * dot_product(ray.direction, origin_to_center);
+	quad.c = dot_product(origin_to_center, origin_to_center) - radius * radius;
+	if (!solve_quadratic(&quad))
 		return (0);
-	*t = (-b - sqrtf(delta)) / (2 * a);
+	if (quad.t1 > 0.000001f)
+		*t = quad.t1;
+	else if (quad.t2 > 0.000001f)
+		*t = quad.t2;
+	else
+		return (0);
 	return (1);
 }
 
-int intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t)
+int	intersect_plane(t_ray ray, t_obj plane, float *t)
 {
-    float   denominator;
-    t_vector point_to_origin;
+	t_vector	point_to_origin;
+	float		denominator;
 
-    denominator = dot_product(direction, plane.norm);
-    if (fabsf(denominator) < 0.000001f)
-        return (0);
-    point_to_origin = vector_sub(plane.vec3, origin);
-    *t = dot_product(point_to_origin, plane.norm) / denominator;
-    if (*t < 0)
-        return (0);
-    return (1);
+	denominator = dot_product(ray.direction, plane.norm);
+	if (fabsf(denominator) < 0.000001f)
+		return (0);
+	point_to_origin = vector_sub(plane.vec3, ray.origin);
+	*t = dot_product(point_to_origin, plane.norm) / denominator;
+	if (*t < 0)
+		return (0);
+	return (1);
 }
+
+int	intersect_cylinder(t_ray ray, t_obj cylinder, float *t)
+{
+	t_vector 	origin_to_center;
+	t_vector 	x;
+	t_vector 	y;
+	t_quadratic quad;
+	float 		radius;
+
+	radius = cylinder.diameter / 2.0f;
+	origin_to_center = vector_sub(ray.origin, cylinder.vec3);
+	x = vector_sub(origin_to_center, vector_mult(cylinder.norm,
+				dot_product(origin_to_center, cylinder.norm)));
+	y = vector_sub(ray.direction, vector_mult(cylinder.norm, dot_product(ray.direction,
+					cylinder.norm)));
+	quad.a = dot_product(y, y);
+	quad.b = 2.0f * dot_product(x, y);
+	quad.c = dot_product(x, x) - radius * radius;
+	if (!solve_quadratic(&quad))
+		return (0);
+	return (get_closest_cylinder_t);
+}
+
