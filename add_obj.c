@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/11 14:13:48 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/12 13:34:26 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,16 @@ void add_plane(t_world *w)
 
 void add_cylindre(t_world *w)
 {
-    (void)w;
-    return ;
-    /*if (count_tab (obj[index]->info) > 6)
-        exit_message("bad number of arguments", obj, 2);
-    set_coordinate (index, obj, CY_COOR);
-    set_color(index, obj, CY_COLOR);
-    obj[index]->diameter = set_size(index, obj, CY_DIAM);
-    obj[index]->height = set_size(index, obj, CY_HEIGHT);
-    set_normalisation (index, obj, CY_NORM);
-    obj[index]->identifier = attribut_identifier(obj[index]->info[CY_ID]);*/
+    // (void)w;
+    // return ;
+    if (count_tab (w->info) > 6)
+        exit_message("bad number of arguments", w, 2);
+    set_coordinate (w, w->form[w->index], CY_COOR);
+    set_color(w, w->form[w->index], CY_COLOR);
+    w->form[w->index]->diameter = set_size(w, CY_DIAM);
+    w->form[w->index]->height = set_size(w, CY_HEIGHT);
+    set_normalisation (w, w->form[w->index], CY_NORM);
+    w->form[w->index]->identifier = attribut_identifier(w->info[CY_ID]);
 }
 
 float    ft_atof(const char *nptr)

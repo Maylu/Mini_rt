@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/12 00:19:23 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/12 01:15:34 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/12 13:21:26 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,19 @@ int	check_cylinder_cap(t_ray ray, t_obj cylinder, int side, float *t)
 	t_vector center_to_point;
 	t_obj cap;
 	float radius;
+    float cap_t;
 
 	radius = cylinder.diameter / 2.0f;
 	cap = cylinder;
 	cap.vec3 = vector_add(cylinder.vec3, vector_mult(cylinder.norm,
 				cylinder.height / 2.0f * side));
-	if (!intersect_plane(ray, cap, t))
+	if (!intersect_plane(ray, cap, &cap_t))
 		return (0);
-	point = ray_position(ray.o, ray.dir, *t);
+	point = ray_position(ray.o, ray.dir, cap_t);
 	center_to_point = vector_sub(point, cap.vec3);
 	if (dot_product(center_to_point, center_to_point) > radius * radius)
 		return (0);
+    if (cap_t < *t)
+		*t = cap_t;
 	return (1);
 }
