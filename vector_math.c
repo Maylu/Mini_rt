@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 01:00:18 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/06 18:44:22 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/11 22:03:24 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,4 @@ float	dot_product(t_vector a, t_vector b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
+

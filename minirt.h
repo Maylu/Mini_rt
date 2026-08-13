@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/11 15:46:29 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/12 01:04:53 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,26 +109,35 @@ typedef struct s_obj
 	float		fov;
 }			t_obj;
 
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	t1;
+	float	t2;
+}			t_quadratic;
+
 typedef struct s_world
 {
-	t_obj 	**form;
-	t_obj 	*light;
-	t_obj 	*ambient;
-	t_obj 	*camera;
-	t_data	mlx;
-	int 	count_form;
-	int		is_light;
-	int		is_ambient;
-	int		is_camera;
-	int		index;
+	t_obj 		**form;
+	t_obj 		*light;
+	t_obj 		*ambient;
+	t_obj 		*camera;
+	t_data		mlx;
+	int 		count_form;
+	int			is_light;
+	int			is_ambient;
+	int			is_camera;
+	int			index;
 	char		**info;
 	float		ratio;
 	float		v_width;
 	float		v_height;
-	t_vector		u;
-	t_vector		v;
-	float	pixel_u;
-	float	pixel_v;
+	t_vector	u;
+	t_vector	v;
+	float		pixel_u;
+	float		pixel_v;
 }			t_world;
 
 typedef struct s_ray
@@ -177,8 +186,13 @@ t_vector	vector_sub(t_vector a, t_vector b);
 t_vector    vector_mult(t_vector v, float s);
 t_vector    ray_position(t_vector origin, t_vector direction, float t);
 float		dot_product(t_vector a, t_vector b);
-int			intersect_sphere(t_vector origin, t_vector direction, t_obj sphere, float *t);
-int			intersect_plane(t_vector origin, t_vector direction, t_obj plane, float *t);
+int			intersect_sphere(t_ray ray, t_obj sphere, float *t);
+int			intersect_plane(t_ray ray, t_obj plane, float *t);
+int			intersect_cylinder(t_ray ray, t_obj cylinder, float *t);
+int			solve_quadratic(t_quadratic *quad);
+int 		is_inside_cylinder(t_ray ray, t_obj cylinder, float t);
+int			get_closest_cylinder_t(t_ray ray, t_obj cylinder, t_quadratic quad, float *t);
+int			check_cylinder_cap(t_ray ray, t_obj cylinder, int side, float *t);
 
 //////////////////////////////
 /*			MLX			*/
