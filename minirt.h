@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/12 01:04:53 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/17 17:06:07 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@
 # define CY_HEIGHT 4
 # define CY_COLOR 5
 
-# define WIDTH 480
+# define WIDTH 800
+# define V_DIST 1
+# define M_PI       3.14159265358979323846
+# define _USE_MATH_DEFINES
 
 enum e_identifier
 {
@@ -93,6 +96,7 @@ typedef struct	s_data
 	int		endian;
 	int		h;
 	int		w;
+	float	ratio;
 	void	*mlx;
 	void	*mlx_win;
 }				t_data;
@@ -138,10 +142,13 @@ typedef struct s_world
 	t_vector	v;
 	float		pixel_u;
 	float		pixel_v;
+	t_vector	right_vec;
+	t_vector	up_vec;
 }			t_world;
 
 typedef struct s_ray
 {
+	t_vector pixel_space;
 	t_vector o;
 	t_vector dir;
 }			t_ray;
@@ -180,13 +187,17 @@ void	add_cylindre(t_world *w);
 //////////////////////////////
 
 float		ft_atof(const char *nptr);
-float		get_magnitude(t_vector vec3);
+float		get_magnitude(t_vector *vec3);
+t_vector	normalise_vector(t_vector *vec);
+t_vector	cross_product(t_vector a, t_vector b);
 t_vector 	vector_add(t_vector a, t_vector b);
 t_vector	vector_sub(t_vector a, t_vector b);
 t_vector    vector_mult(t_vector v, float s);
 t_vector    ray_position(t_vector origin, t_vector direction, float t);
 float		dot_product(t_vector a, t_vector b);
-int			intersect_sphere(t_ray ray, t_obj sphere, float *t);
+t_vector	cross_product(t_vector a, t_vector b);
+t_vector	set_viewport_up_right(t_world *w);
+int			intersect_sphere(t_ray *ray, t_obj *sphere, float *t);
 int			intersect_plane(t_ray ray, t_obj plane, float *t);
 int			intersect_cylinder(t_ray ray, t_obj cylinder, float *t);
 int			solve_quadratic(t_quadratic *quad);

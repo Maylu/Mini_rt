@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 16:46:39 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/11 12:42:46 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/14 15:12:49 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,20 +159,6 @@ float  set_ratio_light(t_world *w, int cat)
 	return (result);
 }
 
-float get_magnitude(t_vector vec3)
-{
-	float	x;
-	float	y;
-	float	z;
-	float	result;
-
-	x = pow(vec3.x, 2);
-	y = pow(vec3.y, 2);
-	z = pow(vec3.z, 2);
-	result = sqrt(x + y + z);
-	return (result);
-}
-
 void    set_normalisation(t_world *w, t_obj *obj, int cat)
 {
 	char **norm_temp;
@@ -216,10 +202,3 @@ float  set_fov(t_world *w, int cat)
 		exit_message("bad argument fov", w, 2);
 	return (result);
 }
-/*	
-	float magnitude;
-	magnitude = get_magnitude(obj[index]->vec3);
-	obj[index]->norm.x = obj[index]->vec3.x / magnitude;
-	obj[index]->norm.y = obj[index]->vec3.y / magnitude;
-	obj[index]->norm.z = obj[index]->vec3.z / magnitude;
-*/

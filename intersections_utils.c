@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/12 00:19:23 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/12 13:21:26 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/17 15:59:26 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	solve_quadratic(t_quadratic *quad)
 {
 	float	delta;
-
 	if (fabsf(quad->a) < 0.000001f)
 		return (0);
 	delta = quad->b * quad->b - 4.0f * quad->a * quad->c;

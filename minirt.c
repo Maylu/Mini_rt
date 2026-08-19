@@ -6,16 +6,16 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/11 15:11:19 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/17 17:36:43 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 //DONE: arrange structs
-//TODO: add a camera
-//TODO: arrange pixel
-//TODO: create mlx while
+//DONE: add a camera
+//DONE: arrange pixel
+//DONE: create mlx while
 
 int	main(int argc, char **argv)
 {

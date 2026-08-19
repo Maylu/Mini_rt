@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/12 13:34:26 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/14 15:12:33 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ void add_light(t_world *w)
 }
 void add_camera(t_world *w)
 {
-    (void)w;
-    return ;
-   /*if (count_tab (obj[index]->info) > 4)
-        exit_message("bad number of arguments", obj, 2);
-    set_coordinate (index, obj, C_COOR);
-    set_normalisation (index, obj, C_NORM);
-    set_fov(index, obj, C_FOV);
-    obj[index]->identifier = attribut_identifier(obj[index]->info[C_ID]);*/
+   if (count_tab (w->info) > 4)
+        exit_message("bad number of arguments", w, 2);
+    set_coordinate (w, w->camera, C_COOR);
+    set_normalisation (w, w->camera, C_NORM);
+    w->camera->fov = set_fov(w, C_FOV);
+    w->camera->identifier = attribut_identifier(w->info[C_ID]);
 }
 
 void add_sphere(t_world *w)
