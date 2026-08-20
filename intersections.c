@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/12 13:35:05 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/17 17:36:43 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	intersect_sphere(t_ray ray, t_obj sphere, float *t)
+int	intersect_sphere(t_ray *ray, t_obj *sphere, float *t)
 {
 	t_vector	origin_to_center;
 	t_quadratic	quad;
 	float		radius;
 
-	radius = sphere.diameter / 2;
-	origin_to_center = vector_sub(ray.o, sphere.vec3);
-	quad.a = dot_product(ray.dir, ray.dir);
-	quad.b = 2.0f * dot_product(ray.dir, origin_to_center);
+	ft_memset(&quad, 0, sizeof(quad));
+	radius = sphere->diameter / 2;
+	origin_to_center = vector_sub(ray->o, sphere->vec3);
+	quad.a = dot_product(ray->dir, ray->dir);
+	quad.b = 2.0f * dot_product(ray->dir, origin_to_center);
 	quad.c = dot_product(origin_to_center, origin_to_center) - radius * radius;
 	if (!solve_quadratic(&quad))
 		return (0);
@@ -34,33 +35,6 @@ int	intersect_sphere(t_ray ray, t_obj sphere, float *t)
 	return (1);
 }
 
-/*int	intersect_sphere(t_obj *sphere, t_ray *r)
-{
-	float		delta;
-	float		radius;
-	t_vector	origin_to_center;
-	t_vector	i;
-	t_vector	point_to_origin;
-	float		denominator;
-	t_vector	point_to_origin;
-	float		denominator;
-
-	radius = sphere->diameter / 2;
-	origin_to_center = vector_sub(r->o, sphere->vec3);
-	i.x = dot_product(r->dir, r->dir);
-	i.y = -2.0f * dot_product(r->dir, origin_to_center);
-	i.z = dot_product(origin_to_center, origin_to_center) - radius * radius;
-	delta = i.y * i.y - 4 * i.x * i.z;
-	if (delta < 0)
-		return (0);
-	if (delta == 0)
-		return (1);
-	return (2);
-}*/
-/*void world_intersect (t_obj **sphere, t_ray *r)
-{
-	//if (intersect_sphere(sphere, r))
-}*/
 int	intersect_plane(t_ray ray, t_obj plane, float *t)
 {
 	t_vector	point_to_origin;
