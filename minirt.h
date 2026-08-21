@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/17 17:06:07 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/21 17:39:43 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include <mlx.h>
-# include <limits.h>
-# include <float.h>
-# include <math.h>
-# include <X11/keysym.h>
 # include "Includes/GNL/get_next_line.h"
 # include "Includes/libft/libft.h"
+# include <X11/keysym.h>
+# include <fcntl.h>
+# include <float.h>
+# include <limits.h>
+# include <math.h>
+# include <mlx.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 # define A_ID 0
 # define A_RATIO 1
@@ -60,10 +60,10 @@
 
 # define WIDTH 800
 # define V_DIST 1
-# define M_PI       3.14159265358979323846
+# define M_PI 3.14159265358979323846
 # define _USE_MATH_DEFINES
 
-enum e_identifier
+enum			e_identifier
 {
 	AMBIENT_LIGHT,
 	LIGHT,
@@ -75,30 +75,30 @@ enum e_identifier
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	z;
-}			t_vector;
+	float		x;
+	float		y;
+	float		z;
+}				t_vector;
 
 typedef struct s_color
 {
 	float		r;
 	float		g;
 	float		b;
-}			t_color;
+}				t_color;
 
-typedef struct	s_data
+typedef struct s_data
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		h;
-	int		w;
-	float	ratio;
-	void	*mlx;
-	void	*mlx_win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			h;
+	int			w;
+	float		ratio;
+	void		*mlx;
+	void		*mlx_win;
 }				t_data;
 
 typedef struct s_obj
@@ -111,25 +111,25 @@ typedef struct s_obj
 	float		height;
 	float		lighting;
 	float		fov;
-}			t_obj;
+}				t_obj;
 
 typedef struct s_quadratic
 {
-	float	a;
-	float	b;
-	float	c;
-	float	t1;
-	float	t2;
-}			t_quadratic;
+	float		a;
+	float		b;
+	float		c;
+	float		t1;
+	float		t2;
+}				t_quadratic;
 
 typedef struct s_world
 {
-	t_obj 		**form;
-	t_obj 		*light;
-	t_obj 		*ambient;
-	t_obj 		*camera;
+	t_obj		**form;
+	t_obj		*light;
+	t_obj		*ambient;
+	t_obj		*camera;
 	t_data		mlx;
-	int 		count_form;
+	int			count_form;
 	int			is_light;
 	int			is_ambient;
 	int			is_camera;
@@ -144,82 +144,87 @@ typedef struct s_world
 	float		pixel_v;
 	t_vector	right_vec;
 	t_vector	up_vec;
-}			t_world;
+}				t_world;
 
 typedef struct s_ray
 {
-	t_vector pixel_space;
-	t_vector o;
-	t_vector dir;
-}			t_ray;
+	t_vector	pixel_space;
+	t_vector	o;
+	t_vector	dir;
+}				t_ray;
 
-typedef	void (*t_atributs)(t_world *w);
+typedef void	(*t_atributs)(t_world *w);
 
 //////////////////////////////
 /*			INIT			*/
 //////////////////////////////
 
-int		count_objs(char **argv, t_world *w);
-void	init_objets(t_world *w, int count, char **argv);
-void	init_structs(t_world *w, int count);
-int		ft_strcmp(const char *s1, const char *s2);
-int		attribut_identifier(char *identifier);
-void	attribute_info(int type, t_world *w);
-int		is_valid(int argc, char **argv);
-int		count_tab(char **tab);
-void	check_doubles(t_world *w, char * tab);
-void    set_color(t_world *w, t_obj *obj, int cat);
-void	set_coordinate(t_world *w, t_obj *obj, int cat);
-float	set_size(t_world *w, int cat);
-void    check_value_coordinate(char *str, t_world *w, int flag);
-float 	set_ratio_light(t_world *w, int cat);
-void    set_normalisation(t_world *w, t_obj *obj, int cat);
-float	set_fov(t_world *w, int cat);
-void	add_ambiant(t_world *w);
-void	add_light(t_world *w);
-void	add_camera(t_world *w);
-void	add_sphere(t_world *w);
-void	add_plane(t_world *w);
-void	add_cylindre(t_world *w);
+int				count_objs(char **argv, t_world *w);
+void			init_objets(t_world *w, int count, char **argv);
+void			init_structs(t_world *w, int count);
+int				ft_strcmp(const char *s1, const char *s2);
+int				attribut_identifier(char *identifier);
+void			attribute_info(int type, t_world *w);
+int				is_valid(int argc, char **argv);
+int				count_tab(char **tab);
+void			check_doubles(t_world *w, char *tab);
+void			set_color(t_world *w, t_obj *obj, int cat);
+void			set_coordinate(t_world *w, t_obj *obj, int cat);
+float			set_size(t_world *w, int cat);
+void			check_value_coordinate(char *str, t_world *w, int flag);
+float			set_ratio_light(t_world *w, int cat);
+void			set_normalisation(t_world *w, t_obj *obj, int cat);
+float			set_fov(t_world *w, int cat);
+void			add_ambiant(t_world *w);
+void			add_light(t_world *w);
+void			add_camera(t_world *w);
+void			add_sphere(t_world *w);
+void			add_plane(t_world *w);
+void			add_cylindre(t_world *w);
+t_color			lit(t_world *w, t_vector hit_point, t_vector normal,
+					t_color obj_color);
 
 //////////////////////////////
 /*			MATH			*/
 //////////////////////////////
 
-float		ft_atof(const char *nptr);
-float		get_magnitude(t_vector *vec3);
-t_vector	normalise_vector(t_vector *vec);
-t_vector	cross_product(t_vector a, t_vector b);
-t_vector 	vector_add(t_vector a, t_vector b);
-t_vector	vector_sub(t_vector a, t_vector b);
-t_vector    vector_mult(t_vector v, float s);
-t_vector    ray_position(t_vector origin, t_vector direction, float t);
-float		dot_product(t_vector a, t_vector b);
-t_vector	cross_product(t_vector a, t_vector b);
-t_vector	set_viewport_up_right(t_world *w);
-int			intersect_sphere(t_ray *ray, t_obj *sphere, float *t);
-int			intersect_plane(t_ray ray, t_obj plane, float *t);
-int			intersect_cylinder(t_ray ray, t_obj cylinder, float *t);
-int			solve_quadratic(t_quadratic *quad);
-int 		is_inside_cylinder(t_ray ray, t_obj cylinder, float t);
-int			get_closest_cylinder_t(t_ray ray, t_obj cylinder, t_quadratic quad, float *t);
-int			check_cylinder_cap(t_ray ray, t_obj cylinder, int side, float *t);
+float			ft_atof(const char *nptr);
+float			get_magnitude(t_vector *vec3);
+t_vector		normalise_vector(t_vector *vec);
+t_vector		cross_product(t_vector a, t_vector b);
+t_vector		vector_add(t_vector a, t_vector b);
+t_vector		vector_sub(t_vector a, t_vector b);
+t_vector		vector_mult(t_vector v, float s);
+t_vector		ray_position(t_vector origin, t_vector direction, float t);
+float			dot_product(t_vector a, t_vector b);
+t_vector		cross_product(t_vector a, t_vector b);
+t_vector		set_viewport_up_right(t_world *w);
+int				intersect_sphere(t_ray *ray, t_obj *sphere, float *t);
+int				intersect_plane(t_ray ray, t_obj plane, float *t);
+int				intersect_cylinder(t_ray ray, t_obj cylinder, float *t);
+int				solve_quadratic(t_quadratic *quad);
+int				is_inside_cylinder(t_ray ray, t_obj cylinder, float t);
+int				get_closest_cylinder_t(t_ray ray, t_obj cylinder,
+					t_quadratic quad, float *t);
+int				check_cylinder_cap(t_ray ray, t_obj cylinder, int side,
+					float *t);
+t_vector		get_normal(t_obj *obj, t_vector hit_point);
 
 //////////////////////////////
 /*			MLX			*/
 //////////////////////////////
 
-void	init_mlx(t_world *w);
-int		close_window(t_world *w);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		move_window(int keycode, t_world *w);
+void			init_mlx(t_world *w);
+int				close_window(t_world *w);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int				move_window(int keycode, t_world *w);
 
 //////////////////////////////
 /*			EXIT			*/
 //////////////////////////////
 
-void	free_tab(char **tab);
-void	free_objs(t_obj **obj);
-void	exit_message(char *message, t_world *w, int code);
+void			free_tab(char **tab);
+void			free_objs(t_obj **obj);
+void			exit_message(char *message, t_world *w, int code);
 
 #endif
