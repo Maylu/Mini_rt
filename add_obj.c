@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/14 15:12:33 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/21 16:22:37 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void add_light(t_world *w)
 {
     (void)w;
     return ;
-    /*if (count_tab (w->info) > 4)
+    if (count_tab (w->info) > 4)
         exit_message("bad number of arguments", w, 2);
-    set_coordinate(w, L_COOR);
-    set_color(w, L_COLOR);
+    set_coordinate(w, w->light, L_COOR);
+    set_color(w, w->light, L_COLOR);
     w->light->lighting = set_ratio_light(w, L_RATIO);
-    w->light->identifier = attribut_identifier(w->info[L_ID]);*/
+    w->light->identifier = attribut_identifier(w->info[L_ID]);
 }
 void add_camera(t_world *w)
 {
