@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 13:56:48 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/18 18:47:10 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/24 11:47:32 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_length) + (x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
+}
+
+int color(t_obj *obj)
+{
+	return (256 * 256 * obj->color.r + 256 * obj->color.g + obj->color.b);
 }
 
 int	close_window(t_world *w)
@@ -53,6 +58,8 @@ t_vector	calculate_pixel(t_world *w, int i, int j, t_vector view_up_right)
 	t_vector y;
 	t_vector result;
 
+	w->pixel_u = w->v_width / (float)w->mlx.w;
+	w->pixel_v = w->v_height / (float)w->mlx.h;
 	x = vector_mult(w->right_vec, (w->pixel_u * (float)i));
 	y = vector_mult(w->up_vec, (w->pixel_v * (float)j));
 	result = vector_sub(x, y);
@@ -60,75 +67,76 @@ t_vector	calculate_pixel(t_world *w, int i, int j, t_vector view_up_right)
 	return (result);
 }
 
-int color(t_obj *obj)
-{
-	return (256 * 256 * obj->color.r + 256 * obj->color.g + obj->color.b);
-}
-
 void	init_mlx(t_world *w)
 {
-	int i;
-	int j;
-	t_vector view_up_right;
-	t_ray ray;
-	float test = 0;
-	i = 0;
-	j = 0;
-	int k = 0;
-	int inter = 0;
-	float temp;
-	t_obj obj;
+	t_vector	view_up_right;
+	t_ray		ray;
+
 	ray.o = w->camera->vec3;
 	view_up_right = set_viewport_up_right(w);
-	w->pixel_u = w->v_width / (float)w->mlx.w;
-	w->pixel_v = w->v_height / (float)w->mlx.h;
 	w->mlx.mlx = mlx_init();
 	w->mlx.mlx_win = mlx_new_window(w->mlx.mlx, w->mlx.w, w->mlx.h, "Minirt");
 	w->mlx.img = mlx_new_image(w->mlx.mlx,  w->mlx.w,  w->mlx.h);
 	w->mlx.addr = mlx_get_data_addr(w->mlx.img, &w->mlx.bits_per_pixel, &w->mlx.line_length, &w->mlx.endian);
+	put_pixel(w, &view_up_right, &ray);
+	mlx_put_image_to_window(w->mlx.mlx, w->mlx.mlx_win, w->mlx.img, 0, 0);
+	mlx_hook(w->mlx.mlx_win, 17, 0, (void*)close_window, w);
+	mlx_hook(w->mlx.mlx_win, 2, 1, (void*)move_window, w);
+	mlx_loop(w->mlx.mlx);
+}
+
+void	put_pixel(t_world *w, t_vector *view_up_right, t_ray *ray)
+{
+	int			i;
+	int			j;
+	float		t;
+
+	i = 0;
+	j = 0;
+	t = 0;
 	while(i < w->mlx.w)
 	{
 		j = 0;
 		while (j < w->mlx.h)
 		{
-			int hit = 0;
-			k = 0;
-			temp = FLT_MAX;
-			ray.pixel_space = calculate_pixel(w, i, j, view_up_right);
-			ray.dir = vector_sub (ray.pixel_space, w->camera->vec3);
-			ray.dir = normalise_vector(&ray.dir);
-			while (w->form[k] != NULL)
-			{
-				inter = 0;
-				if (w->form[k]->identifier == SPHERE)
-					inter = intersect_sphere(&ray, w->form[k], &test);
-			//	else if (w->form[k].identifier == PLANE)
-			//		inter = intersect_plane(&ray, w->form[k], &test) == 1;
-			//	else if (w->form[k].identifier == CYLINDER)
-			//		inter = intersect_cylinder(&ray, w->form[k], &test) == 1;
-				if (test < temp && inter == 1)
-				{
-					temp = test;
-					obj = *w->form[k];
-					hit = 1;
-				}
-				k++;
-			}
-			if(hit)
-				my_mlx_pixel_put(&w->mlx, i, j, color(&obj));
+			ray->pixel_space = calculate_pixel(w, i, j, *view_up_right);
+			ray->dir = vector_sub (ray->pixel_space, w->camera->vec3);
+			ray->dir = normalise_vector(&ray->dir);
+			is_hitting (w, ray, &t);
+			if(w->hit)
+				my_mlx_pixel_put(&w->mlx, i, j, color(&w->obj_temp));
 			else
 				my_mlx_pixel_put(&w->mlx, i, j, 0x000000FF);
-			/*if (intersect_sphere(&ray, w->form[1], &test) == 1)
-				my_mlx_pixel_put(&w->mlx, i, j, color(w->form[1]));
-			else if (intersect_sphere(&ray, w->form[1], &test) == 0)
-				my_mlx_pixel_put(&w->mlx, i, j, 0x000000FF);*/
 			j++;
-
 		}
 		i++;
 	}
-	mlx_put_image_to_window(w->mlx.mlx, w->mlx.mlx_win, w->mlx.img, 0, 0);
-	mlx_hook(w->mlx.mlx_win, 17, 0, (void*)close_window, w);
-	mlx_hook(w->mlx.mlx_win, 2, 1, (void*)move_window, w);
-	mlx_loop(w->mlx.mlx);
+}
+
+void	is_hitting(t_world *w, t_ray *ray, float *t)
+{
+	int	i;
+	int inter;
+	float temp;
+
+	i = 0;
+	w->hit = 0;
+	temp = FLT_MAX;
+	while (w->form[i] != NULL)
+	{
+		inter = 0;
+		if (w->form[i]->identifier == SPHERE)
+			inter = intersect_sphere(ray, w->form[i], t);
+		else if (w->form[i]->identifier == PLANE)
+			inter = intersect_plane(ray, w->form[i], t);
+		else if (w->form[i]->identifier == CYLINDER)
+			inter = intersect_cylinder(ray, w->form[i], t);
+		if (*t < temp && inter == 1)
+		{
+			temp = *t;
+			w->obj_temp = *w->form[i];
+			w->hit = 1;
+		}
+		i++;
+	}
 }

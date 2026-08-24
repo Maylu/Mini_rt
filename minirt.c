@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/17 17:36:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/20 16:25:06 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	count = count_objs(argv, &w);
 	printf("%d", count);
 	init_structs(&w, count);
-	init_objets(&w, count, argv);
+	init_objets(&w, argv);
 	init_mlx(&w);
 	exit_message("OK/n", &w, 1);
 	return (0);
