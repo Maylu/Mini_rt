@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 12:20:02 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/24 12:25:50 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,13 +208,13 @@ float			dot_product(t_vector a, t_vector b);
 t_vector		cross_product(t_vector a, t_vector b);
 t_vector		set_viewport_up_right(t_world *w);
 int				intersect_sphere(t_ray *ray, t_obj *sphere, float *t);
-int				intersect_plane(t_ray ray, t_obj plane, float *t);
-int				intersect_cylinder(t_ray ray, t_obj cylinder, float *t);
+int				intersect_plane(t_ray *ray, t_obj *plane, float *t);
+int				intersect_cylinder(t_ray *ray, t_obj *cylinder, float *t);
 int				solve_quadratic(t_quadratic *quad);
-int				is_inside_cylinder(t_ray ray, t_obj cylinder, float t);
-int				get_closest_cylinder_t(t_ray ray, t_obj cylinder,
-					t_quadratic quad, float *t);
-int				check_cylinder_cap(t_ray ray, t_obj cylinder, int side,
+int				is_inside_cylinder(t_ray *ray, t_obj *cylinder, float t);
+int				get_closest_cylinder_t(t_ray *ray, t_obj *cylinder,
+					t_quadratic *quad, float *t);
+int				check_cylinder_cap(t_ray *ray, t_obj *cylinder, int side,
 					float *t);
 t_vector		get_normal(t_obj *obj, t_vector hit_point);
 
