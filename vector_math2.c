@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_math2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:23:25 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/14 13:19:53 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/21 17:31:54 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,18 @@ t_vector	cross_product(t_vector a, t_vector b)
 	result.y = (a.z * b.x) - (a.x * b.z);
 	result.z = (a.x * b.y) - (a.y * b.x);
 	return (result);
+}
+
+t_vector get_normal (t_obj *obj, t_vector hit_point)
+{
+	t_vector normal;
+
+	if (obj->identifier == SPHERE)
+	{
+		normal = vector_sub(hit_point, obj->vec3);
+		normal = normalise_vector(&normal);
+	}
+	else
+		normal = obj->norm;
+	return (normal);
 }
