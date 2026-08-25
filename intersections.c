@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/17 17:36:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/21 15:54:30 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ int	intersect_sphere(t_ray *ray, t_obj *sphere, float *t)
 	return (1);
 }
 
-int	intersect_plane(t_ray ray, t_obj plane, float *t)
+int	intersect_plane(t_ray *ray, t_obj *plane, float *t)
 {
 	t_vector	point_to_origin;
 	float		denominator;
 
-	denominator = dot_product(ray.dir, plane.norm);
+	denominator = dot_product(ray->dir, plane->norm);
 	if (fabsf(denominator) < 0.000001f)
 		return (0);
-	point_to_origin = vector_sub(plane.vec3, ray.o);
-	*t = dot_product(point_to_origin, plane.norm) / denominator;
+	point_to_origin = vector_sub(plane->vec3, ray->o);
+	*t = dot_product(point_to_origin, plane->norm) / denominator;
 	if (*t < 0)
 		return (0);
 	return (1);
 }
 
-int	intersect_cylinder(t_ray ray, t_obj cylinder, float *t)
+int	intersect_cylinder(t_ray *ray, t_obj *cylinder, float *t)
 {
 	t_vector	origin_to_center;
 	t_vector	x;
@@ -58,18 +58,18 @@ int	intersect_cylinder(t_ray ray, t_obj cylinder, float *t)
 	t_quadratic	quad;
 	float		radius;
 
-	radius = cylinder.diameter / 2.0f;
-	origin_to_center = vector_sub(ray.o, cylinder.vec3);
-	x = vector_sub(origin_to_center, vector_mult(cylinder.norm,
-				dot_product(origin_to_center, cylinder.norm)));
-	y = vector_sub(ray.dir, vector_mult(cylinder.norm, dot_product(ray.dir,
-					cylinder.norm)));
+	radius = cylinder->diameter / 2.0f;
+	origin_to_center = vector_sub(ray->o, cylinder->vec3);
+	x = vector_sub(origin_to_center, vector_mult(cylinder->norm,
+				dot_product(origin_to_center, cylinder->norm)));
+	y = vector_sub(ray->dir, vector_mult(cylinder->norm, dot_product(ray->dir,
+					cylinder->norm)));
 	quad.a = dot_product(y, y);
 	quad.b = 2.0f * dot_product(x, y);
 	quad.c = dot_product(x, x) - radius * radius;
 	*t = FLT_MAX;
 	if (solve_quadratic(&quad))
-		get_closest_cylinder_t(ray, cylinder, quad, t);
+		get_closest_cylinder_t(ray, cylinder, &quad, t);
 	check_cylinder_cap(ray, cylinder, 1, t);
 	check_cylinder_cap(ray, cylinder, -1, t);
 	if (*t == FLT_MAX)

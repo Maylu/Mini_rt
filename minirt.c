@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/17 17:36:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/24 18:50:30 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@
 //DONE: arrange pixel
 //DONE: create mlx while
 
+//TODO: apply shadow
+//TODO:	apply light
+//TODO: 
+//TODO:
+
+
 int	main(int argc, char **argv)
 {
-	int		count;
+	int			count;
 	t_world		w;
 
 	ft_memset(&w, 0, sizeof(w));
@@ -28,7 +34,7 @@ int	main(int argc, char **argv)
 	count = count_objs(argv, &w);
 	printf("%d", count);
 	init_structs(&w, count);
-	init_objets(&w, count, argv);
+	init_objets(&w, argv);
 	init_mlx(&w);
 	exit_message("OK/n", &w, 1);
 	return (0);
