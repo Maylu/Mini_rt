@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 10:44:28 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/21 10:48:53 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/24 17:50:23 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	add_camera(t_world *w)
 		exit_message("bad number of arguments", w, 2);
 	set_coordinate (w, w->camera, C_COOR);
 	set_normalisation (w, w->camera, C_NORM);
+    w->camera->norm = normalise_vector(&w->camera->norm);
 	w->camera->fov = set_fov(w, C_FOV);
 	w->camera->identifier = attribut_identifier(w->info[C_ID]);
 }

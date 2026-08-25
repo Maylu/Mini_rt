@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 12:25:50 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/24 15:57:00 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ int				get_closest_cylinder_t(t_ray *ray, t_obj *cylinder,
 int				check_cylinder_cap(t_ray *ray, t_obj *cylinder, int side,
 					float *t);
 t_vector		get_normal(t_obj *obj, t_vector hit_point);
+void			check_perpendicular(t_world *w);
 
 //////////////////////////////
 /*			MLX			*/
@@ -225,7 +226,7 @@ t_vector		get_normal(t_obj *obj, t_vector hit_point);
 void			init_mlx(t_world *w);
 int				close_window(t_world *w);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	put_pixel(t_world *w, t_vector *view_up_right, t_ray *ray);
+void			put_pixel(t_world *w, t_vector *view_up_right, t_ray *ray);
 int				move_window(int keycode, t_world *w);
 
 //////////////////////////////

@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 12:14:47 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/24 17:50:23 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void add_plane(t_world *w)
         exit_message("bad number of arguments", w, 2);
     set_coordinate(w, w->form[w->index], P_COOR);
     set_normalisation (w, w->form[w->index], P_NORM);
+    w->form[w->index]->norm = normalise_vector(&w->form[w->index]->norm);
     set_color(w, w->form[w->index], P_COLOR);
     w->form[w->index]->identifier = attribut_identifier(w->info[P_ID]);
 }
@@ -42,5 +43,6 @@ void add_cylindre(t_world *w)
     w->form[w->index]->diameter = set_size(w, CY_DIAM);
     w->form[w->index]->height = set_size(w, CY_HEIGHT);
     set_normalisation (w, w->form[w->index], CY_NORM);
+    w->form[w->index]->norm = normalise_vector(&w->form[w->index]->norm);
     w->form[w->index]->identifier = attribut_identifier(w->info[CY_ID]);
 }
