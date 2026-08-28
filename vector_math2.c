@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:23:25 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/21 17:31:54 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/28 01:28:28 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,29 @@ t_vector	cross_product(t_vector a, t_vector b)
 	return (result);
 }
 
-t_vector get_normal (t_obj *obj, t_vector hit_point)
+t_vector	get_normal(t_obj *obj, t_vector hit_point)
 {
-	t_vector normal;
+	t_vector	normal;
+	t_vector	ctr_point;
 
 	if (obj->identifier == SPHERE)
 	{
 		normal = vector_sub(hit_point, obj->vec3);
 		normal = normalise_vector(&normal);
+	}
+	else if (obj->identifier == CYLINDER)
+	{
+		if (obj->hit_zone == 0)
+		{
+			ctr_point = vector_sub(hit_point, obj->vec3);
+			ctr_point = vector_sub(ctr_point, vector_mult(obj->norm,
+						dot_product(ctr_point, obj->norm)));
+			normal = normalise_vector(&ctr_point);
+		}
+		else if (obj->hit_zone == 1)
+			normal = obj->norm;
+		else
+			normal = vector_mult(obj->norm, -1.f);
 	}
 	else
 		normal = obj->norm;

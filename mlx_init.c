@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 13:56:48 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 17:31:24 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/28 01:49:05 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	init_mlx(t_world *w)
 	ray.o = w->camera->vec3;
 	view_up_right = set_viewport_up_right(w);
 	w->mlx.mlx = mlx_init();
+	if (!w->mlx.mlx)
+		exit_message("mlx_init failed\n", w, 2);
 	w->mlx.mlx_win = mlx_new_window(w->mlx.mlx, w->mlx.w, w->mlx.h, "Minirt");
 	w->mlx.img = mlx_new_image(w->mlx.mlx,  w->mlx.w,  w->mlx.h);
 	w->mlx.addr = mlx_get_data_addr(w->mlx.img, &w->mlx.bits_per_pixel,
@@ -57,3 +59,4 @@ void	init_mlx(t_world *w)
 	mlx_hook(w->mlx.mlx_win, 2, 1, (void *)move_window, w);
 	mlx_loop(w->mlx.mlx);
 }
+

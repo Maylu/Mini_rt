@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/12 00:19:23 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/21 15:50:38 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/27 17:22:51 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int	check_cylinder_cap(t_ray *ray, t_obj *cylinder, int side, float *t)
 	if (dot_product(center_to_point, center_to_point) > radius * radius)
 		return (0);
     if (cap_t < *t)
+	{
 		*t = cap_t;
+		if (side == 1)
+			cylinder->hit_zone = 1;
+        else
+            cylinder->hit_zone = 2;
+	}
 	return (1);
 }

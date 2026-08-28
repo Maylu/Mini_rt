@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/21 15:54:30 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/27 17:22:43 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	intersect_cylinder(t_ray *ray, t_obj *cylinder, float *t)
 	quad.b = 2.0f * dot_product(x, y);
 	quad.c = dot_product(x, x) - radius * radius;
 	*t = FLT_MAX;
+	cylinder->hit_zone = 0;
 	if (solve_quadratic(&quad))
 		get_closest_cylinder_t(ray, cylinder, &quad, t);
 	check_cylinder_cap(ray, cylinder, 1, t);
