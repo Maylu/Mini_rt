@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/20 18:37:43 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/21 14:30:07 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/27 03:48:44 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void check_doubles(t_world *w, char *tab)
 		w->is_camera++;
 	if (attribut_identifier(tab) == LIGHT)
 		w->is_light++;
-	if (attribut_identifier(tab) == CAMERA)
+	//if (attribut_identifier(tab) == CAMERA)
+	if (attribut_identifier(tab) == AMBIENT_LIGHT)
 		w->is_ambient++;
 }
 

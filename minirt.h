@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 15:57:00 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/28 01:21:53 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@
 
 # define WIDTH 800
 # define V_DIST 1
+#ifndef M_PI
 # define M_PI 3.14159265358979323846
+#endif
 # define _USE_MATH_DEFINES
 
 enum			e_identifier
@@ -111,6 +113,7 @@ typedef struct s_obj
 	float		height;
 	float		lighting;
 	float		fov;
+	int			hit_zone;
 }				t_obj;
 
 typedef struct s_quadratic
@@ -161,8 +164,8 @@ typedef void	(*t_atributs)(t_world *w);
 /*			INIT			*/
 //////////////////////////////
 
-void	clean_memory(t_world *w, char **line);
-char 	*clean_line(char **line);
+void			clean_memory(t_world *w, char **line);
+char			*clean_line(char **line);
 int				count_objs(char **argv, t_world *w);
 void			init_objets(t_world *w, char **argv);
 void			init_structs(t_world *w, int count);
@@ -176,12 +179,12 @@ void			set_color(t_world *w, t_obj *obj, int cat);
 void			set_coordinate(t_world *w, t_obj *obj, int cat);
 float			set_size(t_world *w, int cat);
 void			check_value_coordinate(char *str, t_world *w, int flag);
-int		count_sign(char *str);
-void	check_characters(t_world *w, char *c, int flag);
-void	check_point(t_world *w, char *c, int *point);
+int				count_sign(char *str);
+void			check_characters(t_world *w, char *c, int flag);
+void			check_point(t_world *w, char *c, int *point);
 float			set_ratio_light(t_world *w, int cat);
 void			set_normalisation(t_world *w, t_obj *obj, int cat);
-void	is_hitting(t_world *w, t_ray *ray, float *t);
+void			is_hitting(t_world *w, t_ray *ray, float *t);
 float			set_fov(t_world *w, int cat);
 void			add_ambiant(t_world *w);
 void			add_light(t_world *w);
@@ -191,6 +194,9 @@ void			add_plane(t_world *w);
 void			add_cylindre(t_world *w);
 t_color			lit(t_world *w, t_vector hit_point, t_vector normal,
 					t_color obj_color);
+int				color(t_obj *obj);
+int				color_to_hex(t_color c);
+int				pixel_color(t_world *w, t_ray *ray, float t);
 
 //////////////////////////////
 /*			MATH			*/

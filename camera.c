@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 14:01:18 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 15:57:16 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/27 19:40:57 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_vector	set_viewport_up_right(t_world *w)
 	w->u = vector_mult (w->right_vec, w->v_width);
 	w->v = vector_mult (vector_mult(w->up_vec, -1.f), w->v_height);
 	view_up_right = vector_add(w->camera->vec3,
-			vector_mult(w->camera->norm, V_DIST));
+			vector_mult(w->camera->norm, V_DIST)); // left?
 	view_up_right = vector_add(view_up_right, vector_sub(vector_mult
 				(vector_mult(w->u, -1.f), 0.5f), vector_mult(w->v, 0.5f)));
 	return (view_up_right);

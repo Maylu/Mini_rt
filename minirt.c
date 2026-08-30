@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 18:50:30 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/27 03:49:28 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	main(int argc, char **argv)
 	init_structs(&w, count);
 	init_objets(&w, argv);
 	init_mlx(&w);
-	exit_message("OK/n", &w, 1);
+	exit_message("OK/n", &w, 1); // code 1 ?
 	return (0);
 }
