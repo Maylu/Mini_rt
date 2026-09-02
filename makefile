@@ -25,7 +25,7 @@ SRCS = $(C_FILES)
 INC = -I includes
 C_FILES = minirt.c exit_functions.c init_utils.c init_struct.c add_obj.c init_coordinate.c mlx_init.c \
 		  vector_math.c intersections.c intersections_utils.c vector_math2.c camera.c utils.c add_setup.c init_struct_utils.c init_coordinate_others.c \
-		  pixels.c pixels_utils.c light.c 
+		  pixels.c pixels_utils.c light.c split_charset.c 
 
 OBJS = $(SRCS:.c=.o)
 all: $(NAME) 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/24 17:26:10 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/28 01:31:14 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:33:59 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,28 @@ void	put_pixel(t_world *w, t_vector *view_up_right, t_ray *ray)
 			ray->dir = normalise_vector(&ray->dir);
 			is_hitting (w, ray, &t);
 			if (w->hit)
+				/*color pixel()
+				t_vector hit_point = ray_position(w->camera->vec3, ray->dir, t);
+				t_vector dir = vector_sub(w->light->vec3, hit_point);
+				dir = normalise_vector(&dir);
+				t_vector norm = get_normal(&w->obj_temp, hit_point);
+				float dist = get_magnitude(vector_sub(w->light->vec3, hit_point));
+				float t_shadow = vector_add(hit_point, vector_mult(norm, FLT_EPSILON));
+				if (t_shadow > 0 && t_shadow < dist)
+				{
+
+				}*/
 				my_mlx_pixel_put(&w->mlx, i, j, pixel_color(w, ray, t));
 			else
 				my_mlx_pixel_put(&w->mlx, i, j, 0x000000FF);
 			j++;
+		
 		}
 		i++;
 	}
 }
+
+
 
 void	is_hitting(t_world *w, t_ray *ray, float *t)
 {
