@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/21 14:54:17 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/30 16:51:41 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	count_objs(char **argv, t_world *w)
 		line = get_next_line(file);
 		if (line == NULL)
 			break ;
-		tab = ft_split(line, '\t');
+		tab = ft_split_charset(line, "\t ");
 		if (attribut_identifier(tab[0]) >= 0)
 			count++;
 		check_doubles(w, tab[0]);
@@ -82,7 +82,7 @@ void	init_objets(t_world *w, char **argv)
 		if (line == NULL)
 			break ;
 		line = clean_line(&line);
-		w->info = ft_split(line, '\t');
+		w->info = ft_split_charset(line, "\t ");
 		if (w->info[0] == NULL || attribut_identifier(w->info[0]) < 0 )
 		{
 			clean_memory(w, &line);

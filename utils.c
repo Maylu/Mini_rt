@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 14:09:25 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/20 18:32:59 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/08/30 16:47:36 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,19 @@ float	ft_atof(const char *nptr)
 		}
 	}
 	return ((float)result * negative);
+}
+
+int	ft_strspn(const char s, const char *chars)
+{
+	int	j;
+
+	j = 0;
+	while (chars[j] != '\0')
+	{
+		if (chars[j] != s)
+			j++;
+		else if (chars[j] == s)
+			return (1);
+	}
+	return (0);
 }

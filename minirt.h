@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/28 01:21:53 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:34:55 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,15 @@ t_color			lit(t_world *w, t_vector hit_point, t_vector normal,
 int				color(t_obj *obj);
 int				color_to_hex(t_color c);
 int				pixel_color(t_world *w, t_ray *ray, float t);
+int				ft_strspn(const char s, const char *chars);
+void			ft_free_split_charset(int nb, char **dest);
+int				count_dest_charset(char const *s, char *c);
+int				count_len_charset(char const *s, char *c);
+char			**split_lines_charset(char **dest, char const *s, char *c);
+char			**ft_split_charset(char const *s, char *c);
+t_vector	shadow_position(t_vector hit_point, t_vector normal);
+float shadow_dist(t_world *w, t_vector hit_point);
+
 
 //////////////////////////////
 /*			MATH			*/
