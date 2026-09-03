@@ -3,131 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 16:58:20 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/02 15:25:29 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/03 03:09:57 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-//TODO: clamp system
-//TODO: color math
+static float	clamp_color(float color)
+{
+	if (color > 255.f)
+		return (255.f);
+	if (color < 0.f)
+		return (0.f);
+	return (color);
+}
 
+static t_vector	get_light_dir(t_obj *light, t_vector hit_point)
+{
+	t_vector	light_dir;
 
+	light_dir = vector_sub(light->vec3, hit_point);
+	light_dir = normalise_vector(&light_dir);
+	return (light_dir);
+}
+
+static t_color	get_light_color(t_obj *light, t_vector hit_point,
+		t_vector normal, t_color obj_color)
+{
+	t_vector	light_dir;
+	float		light_factor;
+	t_color		light_color;
+
+	light_dir = get_light_dir(light, hit_point);
+	light_factor = dot_product(normal, light_dir) * light->lighting;
+	if (light_factor < 0.f)
+		light_factor = 0.f;
+	light_color = color_mix(obj_color, light->color);
+	light_color = color_scale(light_color, light_factor);
+	return (light_color);
+}
 
 t_color	lit(t_world *w, t_vector hit_point, t_vector normal, t_color obj_color)
 {
-	t_vector		light_dir;
-	float			spot_light;
-	t_color			result_color;
-	float			dist_shadow;
-	t_vector		shadow_dir;
+	int		i;
+	t_color	result_color;
+	t_color	light_color;
 
-	light_dir = vector_sub(w->light->vec3, hit_point);
-	light_dir = normalise_vector(&light_dir);
-	spot_light = dot_product(normal, light_dir);
-	dist_shadow = shadow_dist(w, hit_point);
-	shadow_dir = shadow_position(hit_point, normal);
-	if (spot_light < 0.f)
-		spot_light = 0.f;
-	spot_light *= w->light->lighting;
-	result_color.r = obj_color.r * (w->ambient->color.r / 255.f) * w->ambient->lighting;
-		/* * w->ambient->lighting + obj_color.r * (w->light->color.r / 255.f)
-		* spot_light;*/
-	result_color.g = obj_color.g * (w->ambient->color.g / 255.f) * w->ambient->lighting;
-		/* * w->ambient->lighting + obj_color.g * (w->light->color.g / 255.f)
-		* spot_light;*/
-	result_color.b = obj_color.b * (w->ambient->color.b / 255.f) * w->ambient->lighting;
-		/* * w->ambient->lighting + obj_color.b * (w->light->color.b / 255.f)
-		* spot_light;*/
-
-	int i = 0;
-	float t_shadow;
-	int omb = 0;
-	int inter = 0;
-	t_ray shadow_ray;
-	shadow_ray.dir = light_dir;
-	shadow_ray.o = shadow_dir;
-	while (w->form[i] != NULL)
+	i = 0;
+	result_color = color_mix(obj_color, w->ambient->color);
+	result_color = color_scale(result_color, w->ambient->lighting);
+	while (i < w->nb_lights)
 	{
-		t_shadow = 0;
-		/*if(w->form[i] == &w->obj_temp)
+		if (!is_in_shadow(w, w->lights[i], hit_point, normal))
 		{
-			i++;
-			continue ;
-		}*/
-		if (w->form[i]->identifier == SPHERE)
-			inter = intersect_sphere(&shadow_ray, w->form[i], &t_shadow);
-		else if (w->form[i]->identifier == PLANE)
-			inter = intersect_plane(&shadow_ray, w->form[i], &t_shadow);
-		else if (w->form[i]->identifier == CYLINDER)
-			inter = intersect_cylinder(&shadow_ray, w->form[i], &t_shadow);
-		if (inter == 0)
-		{
-			i++;
-			continue ;
-		}
-		if (t_shadow > 0 && t_shadow < dist_shadow)
-		{
-			//printf ("test = %f\n", dist_shadow);
-			//printf ("t_shadow = %f\n", t_shadow);
-			omb = 1;
+			light_color = get_light_color(w->lights[i], hit_point, normal,
+					obj_color);
+			result_color = color_add(result_color, light_color);
 		}
 		i++;
 	}
-	if (omb == 0)
-	{
-		result_color.r += obj_color.r * (w->light->color.r / 255.f) * spot_light;
-		result_color.g += obj_color.g * (w->light->color.g / 255.f) * spot_light;
-		result_color.b += obj_color.b * (w->light->color.b / 255.f) * spot_light;
-	}
-	if (result_color.r > 255.f)
-		result_color.r = 255.f;
-	if (result_color.g > 255.f)
-		result_color.g = 255.f;
-	if (result_color.b > 255.f)
-		result_color.b = 255.f;
-	/*if (result_color.r < 0.f)
-		result_color.r = 0.f;
-	if (result_color.g < 0.f)
-		result_color.g = 0.f;
-	if (result_color.b < 0.f)
-		result_color.b = 0.f;*/
+	result_color.r = clamp_color(result_color.r);
+	result_color.g = clamp_color(result_color.g);
+	result_color.b = clamp_color(result_color.b);
 	return (result_color);
 }
 
-t_vector	shadow_position(t_vector hit_point, t_vector normal)
-{
-	t_vector	result;
-
-	result = vector_mult(normal, 0.001f);
-	result = vector_add(hit_point, result);
-	return (result);
-}
-
-float shadow_dist(t_world *w, t_vector hit_point)
-{
-	float		result;
-	t_vector	raw;
-
-	raw = vector_sub(w->light->vec3, hit_point);
-	result = get_magnitude(&raw);
-	return (result);
-}
-
-
-
 /*
-    t_vector hit_point = ray_position(w->camera->vec3, ray->dir, t);
-    t_vector dir = vector_sub(w->light->vec3, hit_point);
-    dir = normalise_vector(&dir);
-    t_vector norm = get_normal(&w->obj_temp, hit_point);
-    float dist = get_magnitude(vector_sub(w->light->vec3, hit_point));
-    float t_shadow = vector_add(hit_point, vector_mult(norm, FLT_EPSILON));
-    if (t_shadow > 0 && t_shadow < dist)
-    {
+	t_vector hit_point = ray_position(w->camera->vec3, ray->dir, t);
+	t_vector dir = vector_sub(w->lights->vec3, hit_point);
+	dir = normalise_vector(&dir);
+	t_vector norm = get_normal(&w->obj_temp, hit_point);
+	float dist = get_magnitude(vector_sub(w->lights->vec3, hit_point));
+	float t_shadow = vector_add(hit_point, vector_mult(norm, FLT_EPSILON));
+	if (t_shadow > 0 && t_shadow < dist)
+	{
 
-    }
+	}
 */

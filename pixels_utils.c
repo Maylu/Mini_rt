@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 23:46:48 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/31 15:33:59 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/03 01:25:58 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int pixel_color(t_world *w, t_ray *ray, float t)
 
 /*
     t_vector hit_point = ray_position(w->camera->vec3, ray->dir, t);
-    t_vector dir = vector_sub(w->light->vec3, hit_point);
+    t_vector dir = vector_sub(w->lights->vec3, hit_point);
     dir = normalise_vector(&dir);
     t_vector norm = get_normal(&w->obj_temp, hit_point);
-    float dist = get_magnitude(vector_sub(w->light->vec3, hit_point));
+    float dist = get_magnitude(vector_sub(w->lights->vec3, hit_point));
     float t_shadow = vector_add(hit_point, vector_mult(norm, FLT_EPSILON));
     if (t_shadow > 0 && t_shadow < dist)
     {
