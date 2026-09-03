@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 01:05:24 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/03 01:25:50 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/03 22:35:57 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ static t_vector	shadow_position(t_vector hit_point, t_vector normal)
 	return (result);
 }
 
-static float	shadow_dist(t_world *w, t_vector hit_point)
+// static float	shadow_dist(t_world *w, t_vector hit_point)
+static float	shadow_dist(t_obj *light, t_vector hit_point)
 {
 	float		result;
 	t_vector	raw;
 
-	raw = vector_sub(w->lights->vec3, hit_point);
+	raw = vector_sub(light->vec3, hit_point);
 	result = get_magnitude(&raw);
 	return (result);
 }
-int	is_in_shadow(t_world *w, t_vector hit_point, t_vector normal,
-		t_vector light_dir)
+
+int	is_in_shadow(t_world *w, t_obj *light, t_vector hit_point, t_vector normal)
 {
 	int		i;
 	int		omb;
@@ -41,8 +42,8 @@ int	is_in_shadow(t_world *w, t_vector hit_point, t_vector normal,
 
 	i = 0;
 	omb = 0;
-	dist_shadow = shadow_dist(w, hit_point);
-	shadow_ray.dir = light_dir;
+	dist_shadow = shadow_dist(light, hit_point);
+	shadow_ray.dir = get_light_dir(light, hit_point);
 	shadow_ray.o = shadow_position(hit_point, normal);
 	while (w->form[i] != NULL)
 	{

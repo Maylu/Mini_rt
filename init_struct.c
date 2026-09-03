@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/03 03:29:59 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/03 22:54:23 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	init_structs(t_world *w, int count)
 	int	i;
 
 	i = 0;
-	w->count_form = count - 3;
+	//w->count_form = count - 3;
+	w->count_form = count - 2;
 	w->form = malloc(sizeof(t_obj *) * (w->count_form + 1));
 	if (w->form == NULL)
 		exit(1);
@@ -113,7 +114,8 @@ void	init_objets(t_world *w, char **argv)
 		attribute_info(attribut_identifier(w->info[0]), w);
 		if (attribut_identifier(w->info[0]) > 2)
 			w->index++;
-		free_tab(w->info);
+		//free_tab(w->info);
+		free_double_ptr((void **)w->info, count_tab(w->info));
 		w->info = NULL;
 	}
 	close(file);

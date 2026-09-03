@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 16:58:20 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/03 03:09:57 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/03 22:32:46 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static float	clamp_color(float color)
 	return (color);
 }
 
-static t_vector	get_light_dir(t_obj *light, t_vector hit_point)
+t_vector	get_light_dir(t_obj *light, t_vector hit_point)
 {
 	t_vector	light_dir;
 
@@ -30,7 +30,7 @@ static t_vector	get_light_dir(t_obj *light, t_vector hit_point)
 	return (light_dir);
 }
 
-static t_color	get_light_color(t_obj *light, t_vector hit_point,
+t_color	get_light_color(t_obj *light, t_vector hit_point,
 		t_vector normal, t_color obj_color)
 {
 	t_vector	light_dir;
@@ -51,12 +51,14 @@ t_color	lit(t_world *w, t_vector hit_point, t_vector normal, t_color obj_color)
 	int		i;
 	t_color	result_color;
 	t_color	light_color;
+	//t_vector light_dir;
 
 	i = 0;
 	result_color = color_mix(obj_color, w->ambient->color);
 	result_color = color_scale(result_color, w->ambient->lighting);
 	while (i < w->nb_lights)
 	{
+		//light_dir = get_light_dir(w->lights[i], hit_point);
 		if (!is_in_shadow(w, w->lights[i], hit_point, normal))
 		{
 			light_color = get_light_color(w->lights[i], hit_point, normal,

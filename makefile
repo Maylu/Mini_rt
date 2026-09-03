@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g3 -I. -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
 
 ifeq ($(UNAME_S), Darwin)
     MLXFLAG = -L/opt/X11/lib -I/opt/X11/include -lmlx -lXext -lX11 -lm -lz
-    CFLAGS += -I/opt/X11/include
+	CFLAGS += -I/opt/X11/include
 else
     MLXFLAG = -lmlx -lXext -lX11 -lm -lz
 endif
