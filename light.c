@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 16:58:20 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/03 22:32:46 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:03:37 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,19 @@ t_color	lit(t_world *w, t_vector hit_point, t_vector normal, t_color obj_color)
 	int		i;
 	t_color	result_color;
 	t_color	light_color;
-	//t_vector light_dir;
+	float	specular;
 
 	i = 0;
 	result_color = color_mix(obj_color, w->ambient->color);
 	result_color = color_scale(result_color, w->ambient->lighting);
 	while (i < w->nb_lights)
 	{
-		//light_dir = get_light_dir(w->lights[i], hit_point);
 		if (!is_in_shadow(w, w->lights[i], hit_point, normal))
 		{
 			light_color = get_light_color(w->lights[i], hit_point, normal,
 					obj_color);
+			specular = get_specular(w->lights[i], hit_point, normal, w->ray_temp);
+			light_color	= specular_add(light_color, specular * 255);
 			result_color = color_add(result_color, light_color);
 		}
 		i++;
@@ -73,15 +74,21 @@ t_color	lit(t_world *w, t_vector hit_point, t_vector normal, t_color obj_color)
 	return (result_color);
 }
 
-/*
-	t_vector hit_point = ray_position(w->camera->vec3, ray->dir, t);
-	t_vector dir = vector_sub(w->lights->vec3, hit_point);
-	dir = normalise_vector(&dir);
-	t_vector norm = get_normal(&w->obj_temp, hit_point);
-	float dist = get_magnitude(vector_sub(w->lights->vec3, hit_point));
-	float t_shadow = vector_add(hit_point, vector_mult(norm, FLT_EPSILON));
-	if (t_shadow > 0 && t_shadow < dist)
-	{
+float	get_specular(t_obj *light, t_vector hit_point, t_vector normal, t_ray ray)
+{
+	t_vector		norm;
+	t_vector		r;
+	t_vector		v;
+	t_vector		light_dir;
+	float			specular;
 
-	}
-*/
+	light_dir = get_light_dir(light, hit_point);
+	light_dir = normalise_vector(&light_dir);
+	norm = normalise_vector(&normal);
+	r = vector_sub(vector_mult(norm, 2.f * fmax(0.0f, dot_product(norm, light_dir))), light_dir);
+	r = normalise_vector(&r);
+	v = vector_mult(ray.dir, -1);
+	v = normalise_vector(&v);
+	specular = 0.5f * light->lighting * pow(fmax(0.0f, dot_product(r, v)), 64);
+	return (specular);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/03 22:38:58 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:11:32 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,13 @@ typedef struct s_quadratic
 	float		t2;
 }				t_quadratic;
 
+typedef struct s_ray
+{
+	t_vector	pixel_space;
+	t_vector	o;
+	t_vector	dir;
+}				t_ray;
+
 typedef struct s_world
 {
 	t_obj		**form;
@@ -151,15 +158,8 @@ typedef struct s_world
 	t_vector	up_vec;
 	t_obj		obj_temp;
 	int			hit;
-
+	t_ray		ray_temp;
 }				t_world;
-
-typedef struct s_ray
-{
-	t_vector	pixel_space;
-	t_vector	o;
-	t_vector	dir;
-}				t_ray;
 
 typedef void	(*t_atributs)(t_world *w);
 
@@ -214,6 +214,8 @@ char			**ft_split_charset(char const *s, char *c);
 // float			shadow_dist(t_world *w, t_vector hit_point);
 int				is_in_shadow(t_world *w, t_obj *light, t_vector hit_point,
 					t_vector normal);
+float	get_specular(t_obj *light, t_vector hit_point, t_vector normal, t_ray ray);
+t_color	specular_add(t_color a, float specular);
 
 //////////////////////////////
 /*			MATH			*/
