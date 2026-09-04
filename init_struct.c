@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/03 22:54:23 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/04 15:38:39 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	count_objs(char **argv, t_world *w)
 		tab = ft_split_charset(line, "\t ");
 		if (attribut_identifier(tab[0]) == LIGHT)
 			w->nb_lights++;
-		else if (attribut_identifier(tab[0]) >= 0)
+		if (attribut_identifier(tab[0]) >= 0)
 			count++;
 		check_doubles(w, tab[0]);
 		free_double_ptr((void **)tab, count_tab(tab));
@@ -71,8 +71,7 @@ void	init_structs(t_world *w, int count)
 	int	i;
 
 	i = 0;
-	//w->count_form = count - 3;
-	w->count_form = count - 2;
+	w->count_form = count - 3;
 	w->form = malloc(sizeof(t_obj *) * (w->count_form + 1));
 	if (w->form == NULL)
 		exit(1);
