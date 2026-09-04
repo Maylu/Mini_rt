@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 16:37:13 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/27 17:22:43 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/03 22:02:56 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,15 @@ int	intersect_cylinder(t_ray *ray, t_obj *cylinder, float *t)
 	if (*t == FLT_MAX)
 		return (0);
 	return (1);
+}
+
+int	intersect_obj(t_ray *shadow_ray, t_obj *obj, float *t_shadow)
+{
+	if (obj->identifier == SPHERE)
+		return (intersect_sphere(shadow_ray, obj, t_shadow));
+	else if (obj->identifier == PLANE)
+		return (intersect_plane(shadow_ray, obj, t_shadow));
+	else if (obj->identifier == CYLINDER)
+		return (intersect_cylinder(shadow_ray, obj, t_shadow));
+	return (0);
 }

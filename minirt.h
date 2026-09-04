@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/31 15:34:55 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/03 22:38:58 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@
 
 # define WIDTH 800
 # define V_DIST 1
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 # define _USE_MATH_DEFINES
 
 enum			e_identifier
@@ -128,7 +128,8 @@ typedef struct s_quadratic
 typedef struct s_world
 {
 	t_obj		**form;
-	t_obj		*light;
+	t_obj		**lights;
+	int			nb_lights;
 	t_obj		*ambient;
 	t_obj		*camera;
 	t_data		mlx;
@@ -137,6 +138,7 @@ typedef struct s_world
 	int			is_ambient;
 	int			is_camera;
 	int			index;
+	int			light_index;
 	char		**info;
 	float		ratio;
 	float		v_width;
@@ -149,6 +151,7 @@ typedef struct s_world
 	t_vector	up_vec;
 	t_obj		obj_temp;
 	int			hit;
+
 }				t_world;
 
 typedef struct s_ray
@@ -194,6 +197,10 @@ void			add_plane(t_world *w);
 void			add_cylindre(t_world *w);
 t_color			lit(t_world *w, t_vector hit_point, t_vector normal,
 					t_color obj_color);
+t_vector		get_light_dir(t_obj *light, t_vector hit_point);
+t_color			color_add(t_color a, t_color b);
+t_color			color_scale(t_color color, float factor);
+t_color			color_mix(t_color a, t_color b);
 int				color(t_obj *obj);
 int				color_to_hex(t_color c);
 int				pixel_color(t_world *w, t_ray *ray, float t);
@@ -203,9 +210,10 @@ int				count_dest_charset(char const *s, char *c);
 int				count_len_charset(char const *s, char *c);
 char			**split_lines_charset(char **dest, char const *s, char *c);
 char			**ft_split_charset(char const *s, char *c);
-t_vector	shadow_position(t_vector hit_point, t_vector normal);
-float shadow_dist(t_world *w, t_vector hit_point);
-
+// t_vector		shadow_position(t_vector hit_point, t_vector normal);
+// float			shadow_dist(t_world *w, t_vector hit_point);
+int				is_in_shadow(t_world *w, t_obj *light, t_vector hit_point,
+					t_vector normal);
 
 //////////////////////////////
 /*			MATH			*/
@@ -225,6 +233,7 @@ t_vector		set_viewport_up_right(t_world *w);
 int				intersect_sphere(t_ray *ray, t_obj *sphere, float *t);
 int				intersect_plane(t_ray *ray, t_obj *plane, float *t);
 int				intersect_cylinder(t_ray *ray, t_obj *cylinder, float *t);
+int				intersect_obj(t_ray *shadow_ray, t_obj *obj, float *t_shadow);
 int				solve_quadratic(t_quadratic *quad);
 int				is_inside_cylinder(t_ray *ray, t_obj *cylinder, float t);
 int				get_closest_cylinder_t(t_ray *ray, t_obj *cylinder,
@@ -248,8 +257,10 @@ int				move_window(int keycode, t_world *w);
 /*			EXIT			*/
 //////////////////////////////
 
-void			free_tab(char **tab);
-void			free_objs(t_obj **obj);
+// void			free_tab(char **tab);
+//  void			free_objs(t_obj **obj);
 void			exit_message(char *message, t_world *w, int code);
+void			exit_setup_failure(t_world *w);
+void			free_double_ptr(void **array, int count);
 
 #endif

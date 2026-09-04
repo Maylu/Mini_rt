@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g3 -I. -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
 
 ifeq ($(UNAME_S), Darwin)
     MLXFLAG = -L/opt/X11/lib -I/opt/X11/include -lmlx -lXext -lX11 -lm -lz
-    CFLAGS += -I/opt/X11/include
+	CFLAGS += -I/opt/X11/include
 else
     MLXFLAG = -lmlx -lXext -lX11 -lm -lz
 endif
@@ -25,7 +25,7 @@ SRCS = $(C_FILES)
 INC = -I includes
 C_FILES = minirt.c exit_functions.c init_utils.c init_struct.c add_obj.c init_coordinate.c mlx_init.c \
 		  vector_math.c intersections.c intersections_utils.c vector_math2.c camera.c utils.c add_setup.c init_struct_utils.c init_coordinate_others.c \
-		  pixels.c pixels_utils.c light.c split_charset.c 
+		  pixels.c pixels_utils.c light.c shadow.c split_charset.c color_math.c
 
 OBJS = $(SRCS:.c=.o)
 all: $(NAME) 

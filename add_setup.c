@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 10:44:28 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/24 17:50:23 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/03 03:28:42 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	add_light(t_world *w)
 {
 	if (count_tab (w->info) > 4)
 		exit_message("bad number of arguments", w, 2);
-	set_coordinate(w, w->light, L_COOR);
-	set_color(w, w->light, L_COLOR);
-	w->light->lighting = set_ratio_light(w, L_RATIO);
-	w->light->identifier = attribut_identifier(w->info[L_ID]);
+	set_coordinate(w, w->lights[w->light_index], L_COOR);
+	set_color(w, w->lights[w->light_index], L_COLOR);
+	w->lights[w->light_index]->lighting = set_ratio_light(w, L_RATIO);
+	w->lights[w->light_index]->identifier = attribut_identifier(w->info[L_ID]);
+	w->light_index++;
 }
 
 void	add_camera(t_world *w)
