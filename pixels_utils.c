@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 23:46:48 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/03 01:25:58 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:11:57 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int pixel_color(t_world *w, t_ray *ray, float t)
     t_vector normal;
     t_color color;
 
+    w->ray_temp = *ray;
     hit_point = ray_position(ray->o, ray->dir, t);
     normal = get_normal(&w->obj_temp, hit_point);
     color = lit(w, hit_point, normal, w->obj_temp.color);
