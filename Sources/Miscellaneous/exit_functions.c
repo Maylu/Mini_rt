@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:31:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 14:50:14 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 18:09:40 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ void	free_double_ptr(void **array, int count)
 	}
 	free(array);
 }
-
-/*void	exit_setup_failure(t_world *w)
-{
-	free_double_ptr((void **)w->form, w->count_form);
-	free(w->camera);
-	free(w->ambient);
-	exit(1);
-}*/
 
 void	exit_message(char *message, t_world *w, int code)
 {

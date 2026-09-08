@@ -23,9 +23,11 @@ endif
 
 SRCS = $(C_FILES)
 INC = -I includes
-C_FILES = minirt.c exit_functions.c init_utils.c init_struct.c add_obj.c init_coordinate.c mlx_init.c \
-		  vector_math.c intersections.c intersections_utils.c vector_math2.c camera.c utils.c add_setup.c init_struct_utils.c init_coordinate_others.c \
-		  pixels.c pixels_utils.c light.c shadow.c split_charset.c color_math.c
+C_FILES = Sources/Init/init_coordinate.c Sources/Init/init_coordinate_others.c Sources/Init/init_utils.c Sources/Init/init_struct.c Sources/Init/init_struct_utils.c \
+			Sources/Math/vector_math.c Sources/Math/intersections.c Sources/Math/intersections_utils.c Sources/Math/vector_math2.c Sources/Math/color_math.c \
+			Sources/Graphics/mlx_init.c Sources/Graphics/pixels.c Sources/Graphics/pixels_utils.c Sources/Graphics/light.c Sources/Graphics/shadow.c Sources/Graphics/camera.c \
+			Sources/Miscellaneous/exit_functions.c Sources/Miscellaneous/add_obj.c Sources/Miscellaneous/split_charset.c Sources/Miscellaneous/utils.c Sources/Miscellaneous/add_setup.c \
+			minirt.c
 
 OBJS = $(SRCS:.c=.o)
 all: $(NAME) 

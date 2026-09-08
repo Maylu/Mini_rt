@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 18:09:40 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,6 @@ int				move_window(int keycode, t_world *w);
 //////////////////////////////
 
 void			exit_message(char *message, t_world *w, int code);
-void			exit_setup_failure(t_world *w);
 void			free_double_ptr(void **array, int count);
 
 #endif
