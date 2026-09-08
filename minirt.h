@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 18:09:40 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 19:04:52 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct s_world
 	t_obj		obj_temp;
 	int			hit;
 	t_ray		ray_temp;
+	float		t_local;
 }				t_world;
 
 typedef void	(*t_atributs)(t_world *w);
@@ -187,7 +188,6 @@ void			check_characters(t_world *w, char *c, int flag);
 void			check_point(t_world *w, char *c, int *point);
 float			set_ratio_light(t_world *w, int cat);
 void			set_normalisation(t_world *w, t_obj *obj, int cat);
-void			is_hitting(t_world *w, t_ray *ray, float *t);
 float			set_fov(t_world *w, int cat);
 void			add_ambiant(t_world *w);
 void			add_light(t_world *w);
@@ -219,6 +219,8 @@ int				is_in_shadow(t_world *w, t_obj *light, t_vector hit_point,
 					t_vector normal);
 float			get_specular(t_obj *light, t_vector hit_point,
 					t_vector normal, t_ray ray);
+void			is_hitting(t_world *w, t_ray *ray, float *t);
+void			temp_hit(int i, float *temp, int inter, t_world *w);
 
 //////////////////////////////
 /*			MATH			*/

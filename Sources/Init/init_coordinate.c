@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 16:46:39 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 15:56:04 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 18:16:19 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_color(t_world *w, t_obj *obj, int cat)
 	}
 	while (color_temp[i] != NULL)
 	{
-		if ((ft_atof(color_temp[i]) < 0.f || ft_atof(color_temp[i]) > 255.f) 
+		if ((ft_atof(color_temp[i]) < 0.f || ft_atof(color_temp[i]) > 255.f)
 			|| !count_sign(color_temp[i]))
 		{
 			free_double_ptr((void **)color_temp, count_tab(color_temp));
@@ -114,7 +114,7 @@ void	set_normalisation(t_world *w, t_obj *obj, int cat)
 	}
 	while (norm_temp[i] != NULL)
 	{
-		if ((ft_atof(norm_temp[i]) < -1.f || ft_atof(norm_temp[i]) > 1.f) 
+		if ((ft_atof(norm_temp[i]) < -1.f || ft_atof(norm_temp[i]) > 1.f)
 			|| !count_sign(norm_temp[i]))
 		{
 			free_double_ptr((void **)norm_temp, count_tab(norm_temp));

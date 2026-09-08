@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/24 17:26:10 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 19:03:06 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,33 @@ void	is_hitting(t_world *w, t_ray *ray, float *t)
 	int		i;
 	int		inter;
 	float	temp;
-	float	t_local;
 
 	i = 0;
 	w->hit = 0;
 	temp = FLT_MAX;
 	while (w->form[i] != NULL)
 	{
-		t_local = FLT_MAX;
+		w->t_local = FLT_MAX;
 		inter = 0;
 		if (w->form[i]->identifier == SPHERE)
-			inter = intersect_sphere(ray, w->form[i], &t_local);
+			inter = intersect_sphere(ray, w->form[i], &w->t_local);
 		else if (w->form[i]->identifier == PLANE)
-			inter = intersect_plane(ray, w->form[i], &t_local);
+			inter = intersect_plane(ray, w->form[i], &w->t_local);
 		else if (w->form[i]->identifier == CYLINDER)
-			inter = intersect_cylinder(ray, w->form[i], &t_local);
-		if (t_local < temp && inter == 1)
-		{
-			temp = t_local;
-			w->obj_temp = *w->form[i];
-			w->hit = 1;
-		}
+			inter = intersect_cylinder(ray, w->form[i], &w->t_local);
+		temp_hit(i, &temp, inter, w);
 		i++;
 	}
 	if (w->hit)
 		*t = temp;
+}
+
+void	temp_hit(int i, float *temp, int inter, t_world *w)
+{
+	if (w->t_local < *temp && inter == 1)
+	{
+		*temp = w->t_local;
+		w->obj_temp = *w->form[i];
+		w->hit = 1;
+	}
 }

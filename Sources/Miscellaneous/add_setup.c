@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 10:44:28 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 15:57:09 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 18:17:12 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	add_ambiant(t_world *w)
 {
-	if (count_tab (w->info) > 3) 
+	if (count_tab (w->info) > 3)
 		exit_message("Error : bad number of arguments", w, 2);
 	set_color(w, w->ambient, A_COLOR);
 	w->ambient->identifier = attribut_identifier(w->info[A_ID]);

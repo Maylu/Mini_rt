@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 14:01:18 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 15:57:15 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 18:14:56 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_vector	define_vector(float x, float y, float z)
 	result.x = x;
 	result.y = y;
 	result.z = z;
-
 	return (result);
 }
 
