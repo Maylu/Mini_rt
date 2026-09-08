@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 13:56:48 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/28 01:49:05 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	init_mlx(t_world *w)
 	view_up_right = set_viewport_up_right(w);
 	w->mlx.mlx = mlx_init();
 	if (!w->mlx.mlx)
-		exit_message("mlx_init failed\n", w, 2);
+		exit_message("Error : Mlx_init failed\n", w, 2);
 	w->mlx.mlx_win = mlx_new_window(w->mlx.mlx, w->mlx.w, w->mlx.h, "Minirt");
-	w->mlx.img = mlx_new_image(w->mlx.mlx,  w->mlx.w,  w->mlx.h);
+	w->mlx.img = mlx_new_image(w->mlx.mlx, w->mlx.w, w->mlx.h);
 	w->mlx.addr = mlx_get_data_addr(w->mlx.img, &w->mlx.bits_per_pixel,
 			&w->mlx.line_length, &w->mlx.endian);
 	put_pixel(w, &view_up_right, &ray);
@@ -59,4 +59,3 @@ void	init_mlx(t_world *w)
 	mlx_hook(w->mlx.mlx_win, 2, 1, (void *)move_window, w);
 	mlx_loop(w->mlx.mlx);
 }
-

@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/24 16:16:40 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/04 18:11:32 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,17 @@ void			add_camera(t_world *w);
 void			add_sphere(t_world *w);
 void			add_plane(t_world *w);
 void			add_cylindre(t_world *w);
+int				ft_strspn(const char s, const char *chars);
+void			ft_free_split_charset(int nb, char **dest);
+int				count_dest_charset(char const *s, char *c);
+int				count_len_charset(char const *s, char *c);
+char			**split_lines_charset(char **dest, char const *s, char *c);
+char			**ft_split_charset(char const *s, char *c);
+
+//////////////////////////////
+/*			GRAPHICS		*/
+//////////////////////////////
+
 t_color			lit(t_world *w, t_vector hit_point, t_vector normal,
 					t_color obj_color);
 t_vector		get_light_dir(t_obj *light, t_vector hit_point);
@@ -204,18 +215,10 @@ t_color			color_mix(t_color a, t_color b);
 int				color(t_obj *obj);
 int				color_to_hex(t_color c);
 int				pixel_color(t_world *w, t_ray *ray, float t);
-int				ft_strspn(const char s, const char *chars);
-void			ft_free_split_charset(int nb, char **dest);
-int				count_dest_charset(char const *s, char *c);
-int				count_len_charset(char const *s, char *c);
-char			**split_lines_charset(char **dest, char const *s, char *c);
-char			**ft_split_charset(char const *s, char *c);
-// t_vector		shadow_position(t_vector hit_point, t_vector normal);
-// float			shadow_dist(t_world *w, t_vector hit_point);
 int				is_in_shadow(t_world *w, t_obj *light, t_vector hit_point,
 					t_vector normal);
-float	get_specular(t_obj *light, t_vector hit_point, t_vector normal, t_ray ray);
-t_color	specular_add(t_color a, float specular);
+float			get_specular(t_obj *light, t_vector hit_point,
+					t_vector normal, t_ray ray);
 
 //////////////////////////////
 /*			MATH			*/
@@ -244,6 +247,7 @@ int				check_cylinder_cap(t_ray *ray, t_obj *cylinder, int side,
 					float *t);
 t_vector		get_normal(t_obj *obj, t_vector hit_point);
 void			check_perpendicular(t_world *w);
+t_color			specular_add(t_color a, float specular);
 
 //////////////////////////////
 /*			MLX			*/
@@ -259,8 +263,6 @@ int				move_window(int keycode, t_world *w);
 /*			EXIT			*/
 //////////////////////////////
 
-// void			free_tab(char **tab);
-//  void			free_objs(t_obj **obj);
 void			exit_message(char *message, t_world *w, int code);
 void			exit_setup_failure(t_world *w);
 void			free_double_ptr(void **array, int count);

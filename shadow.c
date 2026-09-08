@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 01:05:24 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/03 22:35:57 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static t_vector	shadow_position(t_vector hit_point, t_vector normal)
 	return (result);
 }
 
-// static float	shadow_dist(t_world *w, t_vector hit_point)
 static float	shadow_dist(t_obj *light, t_vector hit_point)
 {
 	float		result;

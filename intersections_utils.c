@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/12 00:19:23 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/08/27 17:22:51 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/08 15:51:29 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	solve_quadratic(t_quadratic *quad)
 {
 	float	delta;
+
 	if (fabsf(quad->a) < 0.000001f)
 		return (0);
 	delta = quad->b * quad->b - 4.0f * quad->a * quad->c;
@@ -24,6 +25,7 @@ int	solve_quadratic(t_quadratic *quad)
 	quad->t2 = (-quad->b + sqrtf(delta)) / (2.0f * quad->a);
 	return (1);
 }
+
 int	is_inside_cylinder(t_ray *ray, t_obj *cylinder, float t)
 {
 	t_vector	point;
@@ -59,11 +61,11 @@ int	get_closest_cylinder_t(t_ray *ray, t_obj *cylinder, t_quadratic *quad,
 
 int	check_cylinder_cap(t_ray *ray, t_obj *cylinder, int side, float *t)
 {
-	t_vector point;
-	t_vector center_to_point;
-	t_obj cap;
-	float radius;
-    float cap_t;
+	t_vector	point;
+	t_vector	center_to_point;
+	t_obj		cap;
+	float		radius;
+	float		cap_t;
 
 	radius = cylinder->diameter / 2.0f;
 	cap = *cylinder;
@@ -75,13 +77,13 @@ int	check_cylinder_cap(t_ray *ray, t_obj *cylinder, int side, float *t)
 	center_to_point = vector_sub(point, cap.vec3);
 	if (dot_product(center_to_point, center_to_point) > radius * radius)
 		return (0);
-    if (cap_t < *t)
+	if (cap_t < *t)
 	{
 		*t = cap_t;
 		if (side == 1)
 			cylinder->hit_zone = 1;
-        else
-            cylinder->hit_zone = 2;
+		else
+			cylinder->hit_zone = 2;
 	}
 	return (1);
 }

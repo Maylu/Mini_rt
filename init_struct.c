@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/04 17:34:51 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 15:08:20 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ int	count_objs(char **argv, t_world *w)
 		check_doubles(w, tab[0]);
 		free_double_ptr((void **)tab, count_tab(tab));
 		free(line);
-		// line = NULL; // je crois que pas besoin de cette ligne et sans elle,on est à 25 lignes.
 	}
 	close(file);
 	if (w->is_camera != 1 || w->nb_lights < 1 || w->is_ambient != 1)
-		exit(0);
+		exit_message("scene not valid", w, 2);
 	return (count);
 }
 
@@ -51,15 +50,12 @@ static void	init_cam_ambient_lights(t_world *w)
 	w->ambient = malloc(sizeof(t_obj));
 	w->lights = malloc(sizeof(t_obj *) * (w->nb_lights + 1));
 	if (!w->camera || !w->ambient || !w->lights)
-		exit_setup_failure(w);
+		exit_message("Malloc failed", w, 2);
 	while (i < w->nb_lights)
 	{
 		w->lights[i] = malloc(sizeof(t_obj));
 		if (w->lights[i] == NULL)
-		{
-			free_double_ptr((void **)w->lights, i);
-			exit_setup_failure(w);
-		}
+			exit_message("Malloc failed", w, 2);
 		ft_memset(w->lights[i], 0, sizeof(t_obj));
 		i++;
 	}
@@ -74,15 +70,12 @@ void	init_structs(t_world *w, int count)
 	w->count_form = count - 2;
 	w->form = malloc(sizeof(t_obj *) * (w->count_form + 1));
 	if (w->form == NULL)
-		exit(1);
+		exit_message("Malloc failed", w, 2);
 	while (i < (w->count_form))
 	{
 		w->form[i] = malloc(sizeof(t_obj));
 		if (w->form[i] == NULL)
-		{
-			free_double_ptr((void **)w->form, i);
-			exit(1);
-		}
+			exit_message("Malloc failed", w, 2);
 		ft_memset(w->form[i], 0, sizeof(t_obj));
 		i++;
 	}
@@ -113,7 +106,6 @@ void	init_objets(t_world *w, char **argv)
 		attribute_info(attribut_identifier(w->info[0]), w);
 		if (attribut_identifier(w->info[0]) > 2)
 			w->index++;
-		//free_tab(w->info);
 		free_double_ptr((void **)w->info, count_tab(w->info));
 		w->info = NULL;
 	}
@@ -124,7 +116,6 @@ void	attribute_info(int type, t_world *w)
 {
 	t_atributs	f[6];
 
-	printf("%d\n", type);
 	f[0] = &add_ambiant;
 	f[1] = &add_light;
 	f[2] = &add_camera;

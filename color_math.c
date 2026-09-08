@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 22:20:55 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/04 18:10:54 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/08 15:57:02 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_color	color_scale(t_color color, float factor)
 
 t_color	color_mix(t_color a, t_color b)
 {
-	t_color result;
+	t_color	result;
+
 	result.r = a.r * (b.r / 255.f);
 	result.g = a.g * (b.g / 255.f);
 	result.b = a.b * (b.b / 255.f);
