@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   pixels_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/23 16:52:50 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 15:58:54 by gcamara          ###   ########.fr       */
+/*   Created: 2026/08/27 23:46:48 by rhmontei          #+#    #+#             */
+/*   Updated: 2026/09/08 15:59:16 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(int argc, char **argv)
+int	color_to_hex(t_color c)
 {
-	int			count;
-	t_world		w;
+	return (((int)c.r << 16) | ((int)c.g << 8) | (int)c.b);
+}
 
-	ft_memset(&w, 0, sizeof(w));
-	if (!is_valid(argc, argv))
-	{
-		write(2, "file not valid", 15);
-		return (2);
-	}
-	count = count_objs(argv, &w);
-	init_structs(&w, count);
-	init_objets(&w, argv);
-	init_mlx(&w);
-	exit_message("OK/n", &w, 0);
-	return (0);
+int	pixel_color(t_world *w, t_ray *ray, float t)
+{
+	t_vector	hit_point;
+	t_vector	normal;
+	t_color		color;
+
+	w->ray_temp = *ray;
+	hit_point = ray_position(ray->o, ray->dir, t);
+	normal = get_normal(&w->obj_temp, hit_point);
+	color = lit(w, hit_point, normal, w->obj_temp.color);
+	return (color_to_hex(color));
 }
