@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_math2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:23:25 by gcamara           #+#    #+#             */
-/*   Updated: 2026/08/28 01:28:28 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/11 16:45:36 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_vector	normalise_vector(t_vector *vec)
 	t_vector	result;
 
 	magnitude = get_magnitude(vec);
+	if (magnitude == 0)
+		return (*vec);
 	result.x = vec->x / magnitude;
 	result.y = vec->y / magnitude;
 	result.z = vec->z / magnitude;

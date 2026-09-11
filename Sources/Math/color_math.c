@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 22:20:55 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/11 01:26:02 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/11 15:06:38 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,3 @@ t_color	color_mix(t_color a, t_color b)
 	result.b = a.b * (b.b / 255.f);
 	return (result);
 }
-
-// t_color	specular_add(t_color a, float specular)
-// {
-// 	t_color	result;
-
-// 	result.r = a.r + specular;
-// 	result.g = a.g + specular;
-// 	result.b = a.b + specular;
-// 	return (result);
-// }
