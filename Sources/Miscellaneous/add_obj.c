@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:54:12 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:13:01 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	add_sphere(t_world *w)
 {
 	if (count_tab (w->info) > 4)
-		exit_message("Error : bad number of arguments", w, 2);
+		exit_message("Error: bad number of arguments\n", w, 2);
 	set_coordinate(w, w->form[w->index], S_COOR);
 	set_color(w, w->form[w->index], S_COLOR);
 	w->form[w->index]->diameter = set_size(w, S_DIAM);
@@ -25,7 +25,7 @@ void	add_sphere(t_world *w)
 void	add_plane(t_world *w)
 {
 	if (count_tab (w->info) > 4)
-		exit_message("Error : bad number of arguments", w, 2);
+		exit_message("Error: bad number of arguments\n", w, 2);
 	set_coordinate(w, w->form[w->index], P_COOR);
 	set_normalisation (w, w->form[w->index], P_NORM);
 	w->form[w->index]->norm = normalise_vector(&w->form[w->index]->norm);
@@ -36,7 +36,7 @@ void	add_plane(t_world *w)
 void	add_cylindre(t_world *w)
 {
 	if (count_tab (w->info) > 6)
-		exit_message("Error : bad number of arguments", w, 2);
+		exit_message("Error: bad number of arguments\n", w, 2);
 	set_coordinate (w, w->form[w->index], CY_COOR);
 	set_color(w, w->form[w->index], CY_COLOR);
 	w->form[w->index]->diameter = set_size(w, CY_DIAM);

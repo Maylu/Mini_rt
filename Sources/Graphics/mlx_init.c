@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 13:56:48 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/11 14:09:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:06:10 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	close_window(t_world *w)
 		mlx_destroy_window(w->mlx.mlx, w->mlx.mlx_win);
 	mlx_destroy_display(w->mlx.mlx);
 	free(w->mlx.mlx);
-	exit_message("OK", w, 0);
+	exit_message("OK\n", w, 0);
 	return (0);
 }
 
@@ -34,7 +34,7 @@ int	move_window(int keycode, t_world *w)
 			mlx_destroy_window(w->mlx.mlx, w->mlx.mlx_win);
 		mlx_destroy_display(w->mlx.mlx);
 		free(w->mlx.mlx);
-		exit_message("OK", w, 0);
+		exit_message("OK\n", w, 0);
 	}
 	return (0);
 }

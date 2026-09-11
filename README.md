@@ -196,13 +196,24 @@ The result of this combination gives the final color of the pixel displayed on t
 
 ## Instructions
 
+Mandatory
+
 `make`
 `./minirt Scene/multi_shapes.rt`
 
 With bonus
 
 `make bonus`
-`./minirt Scene/Bonus/multi_shapes.rt`
+`./minirt Scene/multi_shapes.rt`
+
+`make clean`     
+ removes object files (.o)
+
+`make fclean`    
+removes object files and executables (minirt)
+
+`make re`
+rebuilds everything from scratch (fclean + make)
 
 ## Resources
 

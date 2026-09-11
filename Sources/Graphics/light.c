@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 16:58:20 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/11 15:06:38 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:56:03 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_vector	get_light_dir(t_obj *light, t_vector hit_point)
 	return (light_dir);
 }
 
-t_color	get_light_color(t_obj *light, t_vector hit_point,
-		t_vector normal, t_color obj_color)
+t_color	get_light_color(t_obj *light, t_vector hit_point, t_vector normal,
+		t_color obj_color)
 {
 	t_vector	light_dir;
 	float		light_factor;
@@ -45,7 +45,6 @@ t_color	get_light_color(t_obj *light, t_vector hit_point,
 	light_color = color_scale(light_color, light_factor);
 	return (light_color);
 }
-
 
 t_color	lit(t_world *w, t_vector hit_point, t_vector normal, t_color obj_color)
 {
