@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 16:58:20 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/11 14:09:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:56:31 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_vector	get_light_dir(t_obj *light, t_vector hit_point)
 	return (light_dir);
 }
 
-t_color	get_light_color(t_obj *light, t_vector hit_point,
-		t_vector normal, t_color obj_color)
+t_color	get_light_color(t_obj *light, t_vector hit_point, t_vector normal,
+		t_color obj_color)
 {
 	t_vector	light_dir;
 	float		light_factor;
@@ -46,14 +46,14 @@ t_color	get_light_color(t_obj *light, t_vector hit_point,
 	return (light_color);
 }
 
-float	get_specular(t_obj *light, t_vector hit_point,
-		t_vector normal, t_ray ray)
+float	get_specular(t_obj *light, t_vector hit_point, t_vector normal,
+		t_ray ray)
 {
-	t_vector		norm;
-	t_vector		r;
-	t_vector		v;
-	t_vector		light_dir;
-	float			specular;
+	t_vector	norm;
+	t_vector	r;
+	t_vector	v;
+	t_vector	light_dir;
+	float		specular;
 
 	light_dir = get_light_dir(light, hit_point);
 	norm = normalise_vector(&normal);
@@ -82,8 +82,8 @@ t_color	lit(t_world *w, t_vector hit_point, t_vector normal, t_color obj_color)
 		{
 			light_color = get_light_color(w->lights[i], hit_point, normal,
 					obj_color);
-			specular = get_specular(w->lights[i], hit_point,
-					normal, w->ray_temp);
+			specular = get_specular(w->lights[i], hit_point, normal,
+					w->ray_temp);
 			light_color = specular_add(light_color, specular * 255);
 			result_color = color_add(result_color, light_color);
 		}
