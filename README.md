@@ -116,46 +116,82 @@ We then calculate the direction of the ray going from the camera to the point **
 
 This vector **D** represents the direction of the ray. It is then used in the object intersection equations to determine the value of **t** and thus the point of impact of the ray in the scene.
 
-### Pixel Treatments
 
-une fois qu'on a trouve le point d'impact, le calcul de la couleur du pixel combine la couelur defini de l'objet et la lumiere qui recoit
-nous pouvons determiner 
-la couleur
-la lumiere
-la normale
-la speculaire
-l'ombre
+### Color Calculation
 
-Nous nous sommes bases sur le modele lambertian qui est compose de la diffuse et de la speculaire en tenant compte des ombres
+Once we have found the ray's intersection point, we can calculate the color of the pixel. This calculation combines the color defined for the object with the light received by its surface.
 
-Couleur et lumiere
+We can determine:
 
-l'object a une couleur et une source de couleur, on deffini un vecteur L qui va vers qui v vers le point d'impact P et une normale N qui est perpendiculaire au point d'mpact P
+* the **object color**;
+* the **received light**;
+* the **surface normal**;
+* the **specular component**;
+* the **shadows**.
 
+For our raytracer, we based our lighting model on the **Phong model**, which combines a diffuse component, a specular component, and an ambient component while taking shadows into account.
 
-Diffuse
+### Color and Light
 
-Le lambert est un ecairage de base, plus une surface fait face a a lumiere pus ee est ecairee, si la lumierer frappe de blais c'est pus sombre
+Each object has a color, and each light source also has a color and an intensity.
 
-L = max(O, N * L)
-si N * L= 1 la lumiere frappe a 90 degre donc pein ecairage
-si N * L <= 0 aucun eclairage ne touche la surface
+At the intersection point **P**, we define:
 
-Ombre Porte
+* **N**: the surface normal at the intersection point;
+* **L**: the vector from the intersection point **P** to the light source;
+* **V**: the vector from the intersection point **P** to the camera.
 
-Avant d'ajouter a couleur au pixe on verifie si il y a un obstacle entre le point dimpact et la umiere
-On lance un rayon d'ombre, si le rayon touche une autre forme avant d'atteindre a lumiere le point est a 'ombre et donc on mutiplie par a valeur ambiante
+These vectors are generally normalized to simplify the calculations.
 
-La Speculaire
+### Diffuse
 
-Le speculaire ajoute le reflet brillant a la surface, dependant de la position de la camera
-Pour cela on utilise la formule de phong
-spec = max(O, R*V)
-plus le rayon refechi va directement dans 'oeil plus a tache est brillante
+**Lambertian diffuse lighting** is a simple lighting model. The more a surface faces the light source, the more illuminated it is. Conversely, if the light reaches the surface at a grazing angle, the surface receives less light.
 
-Pour finir on assenbe le tout dans la couleur finale
+The diffuse component can be calculated using:
 
-C = Ambiant + Ombre * (couleur_obj * couleur_lum * L) + (couleur_lum *spec)
+**Ldiffuse = max(0, N · L)**
+
+* If **N · L = 1**, the normal is perfectly aligned with the light direction, so the surface receives maximum illumination.
+* If **N · L ≤ 0**, the surface does not receive direct light, and the diffuse component is zero.
+
+### Cast Shadows
+
+Before adding the light contribution to the pixel color, we check whether there is an obstacle between the intersection point and the light source.
+
+To do this, we cast a **shadow ray** from the intersection point toward the light source. If this ray intersects another object before reaching the light, the intersection point is in shadow.
+
+In this case, the direct light contribution is removed or significantly reduced, and only the ambient component may be kept.
+
+### Specular Component
+
+The specular component adds a bright reflection to the surface. It mainly depends on the position of the camera and the orientation of the surface.
+
+For this, we use the **Phong model**. We first calculate the reflected vector **R**, then use the dot product between **R** and **V**:
+
+**spec = max(0, R · V)ⁿ**
+
+where **n** represents the shininess coefficient, also known as *shininess*.
+
+The more closely the reflected ray is aligned with the camera direction, the brighter the specular highlight will be.
+
+### Final Color Calculation
+
+Finally, we combine the different components to obtain the final color of the pixel.
+
+A simplified formula can be represented as:
+
+**C = Cₐ + Shadow × (Cobject × Clight × Ldiffuse) + (Clight × spec)**
+
+where:
+
+* **Cₐ**: the ambient color;
+* **Cobject**: the object color;
+* **Clight**: the light source color;
+* **Ldiffuse**: the diffuse lighting intensity;
+* **Shadow**: a factor indicating whether the point is illuminated or in shadow;
+* **spec**: the specular component.
+
+The result of this combination gives the final color of the pixel displayed on the screen.
 
 
 ## Instructions
