@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 10:44:28 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 18:17:12 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:13:25 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_ambiant(t_world *w)
 void	add_light(t_world *w)
 {
 	if (count_tab (w->info) > 4)
-		exit_message("Error : bad number of arguments", w, 2);
+		exit_message("Error: bad number of arguments\n", w, 2);
 	set_coordinate(w, w->lights[w->light_index], L_COOR);
 	set_color(w, w->lights[w->light_index], L_COLOR);
 	w->lights[w->light_index]->lighting = set_ratio_light(w, L_RATIO);
@@ -35,7 +35,7 @@ void	add_light(t_world *w)
 void	add_camera(t_world *w)
 {
 	if (count_tab (w->info) > 4)
-		exit_message("Error : bad number of arguments", w, 2);
+		exit_message("Error: bad number of arguments\n", w, 2);
 	set_coordinate (w, w->camera, C_COOR);
 	set_normalisation (w, w->camera, C_NORM);
 	w->camera->norm = normalise_vector(&w->camera->norm);

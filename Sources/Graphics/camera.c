@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 14:01:18 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/11 14:09:43 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:09:47 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	check_perpendicular(t_world *w)
 	temp = 0.f;
 	temp = dot_product(w->right_vec, w->up_vec);
 	if (temp != 0)
-		exit_message("Error : angle perpendicular", w, 2);
+		exit_message("Error: perpendicular angle\n", w, 2);
 	temp = dot_product(w->camera->norm, w->up_vec);
 	if (temp != 0)
-		exit_message("Error : angle perpendicular", w, 2);
+		exit_message("Error: perpendicular angle\n", w, 2);
 	temp = dot_product(w->right_vec, w->camera->norm);
 	if (temp != 0)
-		exit_message("Error : angle perpendicular", w, 2);
+		exit_message("Error: perpendicular angle\n", w, 2);
 }
 
 t_vector	set_viewport_up_right(t_world *w)

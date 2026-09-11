@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_coordinate_others.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 12:18:16 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 15:57:31 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 17:06:44 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	count_sign(char *str)
 void	check_point(t_world *w, char *c, int *point)
 {
 	if (*c == '.' && *point == 1)
-		exit_message("bad arguments2", w, 2);
+		exit_message("bad arguments2\n", w, 2);
 	if (*c == '.')
 		*point = 1;
 }
@@ -41,13 +41,13 @@ void	check_characters(t_world *w, char *c, int flag)
 	{
 		if (!ft_isdigit(*c) && *c != ',' && *c != '.'
 			&& *c != '+' && *c != '-')
-			exit_message("bad arguments1", w, 2);
+			exit_message("bad arguments1\n", w, 2);
 	}
 	else if (flag == 0)
 	{
 		if (!ft_isdigit(*c) && *c != '.'
 			&& *c != '+' && *c != '-')
-			exit_message("bad arguments1", w, 2);
+			exit_message("bad arguments1\n", w, 2);
 	}
 }
 
@@ -86,11 +86,11 @@ float	set_fov(t_world *w, int cat)
 
 	check_value_coordinate(w->info[cat], w, 0);
 	if (!count_sign(w->info[cat]))
-		exit_message("bad argument size", w, 2);
+		exit_message("bad argument size\n", w, 2);
 	result = ft_atof(w->info[cat]);
 	if (isinf(result))
-		exit_message("bad argument fov", w, 2);
+		exit_message("bad argument fov\n", w, 2);
 	if (result < 0.f || result > 180.f)
-		exit_message("bad argument fov", w, 2);
+		exit_message("bad argument fov\n", w, 2);
 	return (result);
 }

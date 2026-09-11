@@ -6,7 +6,7 @@
 /*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/11 12:06:00 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/11 17:10:46 by rhmontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	count_objs(char **argv, t_world *w)
 	}
 	close(file);
 	if (w->is_camera != 1 || w->nb_lights != 1 || w->is_ambient != 1)
-		exit_message("scene not valid", w, 2);
+		exit_message("Scene not valid\n", w, 2);
 	return (count);
 }
 
@@ -50,12 +50,12 @@ static void	init_cam_ambient_lights(t_world *w)
 	w->ambient = malloc(sizeof(t_obj));
 	w->lights = malloc(sizeof(t_obj *) * (w->nb_lights + 1));
 	if (!w->camera || !w->ambient || !w->lights)
-		exit_message("Malloc failed", w, 2);
+		exit_message("Malloc failed\n", w, 2);
 	while (i < w->nb_lights)
 	{
 		w->lights[i] = malloc(sizeof(t_obj));
 		if (w->lights[i] == NULL)
-			exit_message("Malloc failed", w, 2);
+			exit_message("Malloc failed\n", w, 2);
 		ft_memset(w->lights[i], 0, sizeof(t_obj));
 		i++;
 	}
@@ -70,12 +70,12 @@ void	init_structs(t_world *w, int count)
 	w->count_form = count - 2;
 	w->form = malloc(sizeof(t_obj *) * (w->count_form + 1));
 	if (w->form == NULL)
-		exit_message("Malloc failed", w, 2);
+		exit_message("Malloc failed\n", w, 2);
 	while (i < (w->count_form))
 	{
 		w->form[i] = malloc(sizeof(t_obj));
 		if (w->form[i] == NULL)
-			exit_message("Malloc failed", w, 2);
+			exit_message("Malloc failed\n", w, 2);
 		ft_memset(w->form[i], 0, sizeof(t_obj));
 		i++;
 	}
