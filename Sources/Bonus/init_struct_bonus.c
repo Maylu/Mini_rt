@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhmontei <rhmontei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 14:36:59 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/11 10:43:38 by rhmontei         ###   ########.fr       */
+/*   Updated: 2026/09/08 15:08:20 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	count_objs(char **argv, t_world *w)
 		free(line);
 	}
 	close(file);
-	if (w->is_camera != 1 || w->nb_lights != 1 || w->is_ambient != 1)
+	if (w->is_camera != 1 || w->nb_lights < 1 || w->is_ambient != 1)
 		exit_message("scene not valid", w, 2);
 	return (count);
 }
