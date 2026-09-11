@@ -6,7 +6,7 @@
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 13:56:48 by gcamara           #+#    #+#             */
-/*   Updated: 2026/09/08 16:06:51 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 14:09:43 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	init_mlx(t_world *w)
 	t_ray		ray;
 
 	ray.o = w->camera->vec3;
+	w->mlx.ratio = 16.f / 9.f;
+	w->mlx.w = WIDTH;
+	w->mlx.h = (int)w->mlx.w / w->mlx.ratio;
+	if (w->mlx.h < 1)
+		w->mlx.h = 1;
 	view_up_right = set_viewport_up_right(w);
 	w->mlx.mlx = mlx_init();
 	if (!w->mlx.mlx)

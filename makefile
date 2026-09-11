@@ -22,7 +22,6 @@ else
     MLXFLAG = -lmlx -lXext -lX11 -lm -lz
 endif
 
-INC = -I includes #pas besoin, non ?
 C_FILES = Sources/Init/init_coordinate.c Sources/Init/init_coordinate_others.c Sources/Init/init_utils.c Sources/Init/init_struct.c Sources/Init/init_struct_utils.c \
 			Sources/Math/vector_math.c Sources/Math/intersections.c Sources/Math/intersections_utils.c Sources/Math/vector_math2.c Sources/Math/color_math.c \
 			Sources/Graphics/mlx_init.c Sources/Graphics/pixels.c Sources/Graphics/pixels_utils.c Sources/Graphics/light.c Sources/Graphics/shadow.c Sources/Graphics/camera.c \
@@ -44,14 +43,11 @@ OBJS_BONUS = $(MANDATORY_WITHOUT_BONUS:.c=.o) $(BONUS_FILES:.c=.o)
 all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT) $(GNL)
-	find . -name 'vgcore.*' -exec rm {} \;
-#besoin de ça? 
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(GNL) -L $(MLX_DIR) $(MLXFLAG) -o $(NAME)
 
 bonus: $(BONUS)
 
 $(BONUS): $(OBJS_BONUS) $(LIBFT) $(GNL)
-	find . -name 'vgcore.*' -exec rm {} \;
 	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(GNL) -L $(MLX_DIR) $(MLXFLAG) -o $(NAME)
 	touch $(BONUS)
 

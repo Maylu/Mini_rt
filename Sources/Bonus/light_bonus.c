@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.c                                            :+:      :+:    :+:   */
+/*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcamara <gcamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 16:58:20 by rhmontei          #+#    #+#             */
-/*   Updated: 2026/09/08 15:58:47 by gcamara          ###   ########.fr       */
+/*   Updated: 2026/09/11 14:09:43 by gcamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ float	get_specular(t_obj *light, t_vector hit_point,
 	float			specular;
 
 	light_dir = get_light_dir(light, hit_point);
-	light_dir = normalise_vector(&light_dir);
 	norm = normalise_vector(&normal);
 	r = vector_sub(vector_mult(norm, 2.f * fmax(0.0f, dot_product(norm,
 						light_dir))), light_dir);
